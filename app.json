@@ -1,0 +1,12 @@
+{
+  "name": "workshop-app",
+  "displayName": "workshop-app",
+  "expo": {
+    "name": "workshop-app",
+    "slug": "workshop-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
