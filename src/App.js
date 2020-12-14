@@ -12,6 +12,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
+        {/* Add Something */}
       </Stack.Navigator>
     </NavigationContainer>
   );
