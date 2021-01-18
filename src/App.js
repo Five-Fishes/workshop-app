@@ -50,7 +50,7 @@ function HomeStack() {
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          headerStyle: { backgroundColor: '#1F1B8D' },
+          headerStyle: { backgroundColor: '#163460' },
           headerTintColor: '#fff',
           headerTitleStyle: { fontWeight: 'bold' },
           headerTitleAlign:{headerTitleAlign:'center'}
@@ -69,7 +69,7 @@ function SettingsStack() {
     <Stack.Navigator
       initialRouteName="Settings"
       screenOptions={{
-        headerStyle: { backgroundColor: '#1F1B8D' },
+        headerStyle: { backgroundColor: '#163460' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerTitleAlign:{headerTitleAlign:'center'}
@@ -88,7 +88,7 @@ function AppointmentStack() {
     <Stack.Navigator
       initialRouteName="Appointment"
       screenOptions={{
-        headerStyle: { backgroundColor: '#1F1B8D' },
+        headerStyle: { backgroundColor: '#163460' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerTitleAlign:{headerTitleAlign:'center'}
@@ -107,7 +107,7 @@ function MessageStack() {
     <Stack.Navigator
       initialRouteName="Message"
       screenOptions={{
-        headerStyle: { backgroundColor: '#1F1B8D' },
+        headerStyle: { backgroundColor: '#163460' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerTitleAlign:{headerTitleAlign:'center'}
@@ -126,7 +126,7 @@ function PromoStack() {
     <Stack.Navigator
       initialRouteName="Promo"
       screenOptions={{
-        headerStyle: { backgroundColor: '#1F1B8D' },
+        headerStyle: { backgroundColor: '#163460' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerTitleAlign:{headerTitleAlign:'center'}
@@ -146,7 +146,7 @@ function App() {
       <Tab.Navigator
         initialRouteName="Home"
         tabBarOptions={{
-          activeTintColor: '#1F1B8D',
+          activeTintColor: '#163460',
         }}>
         <Tab.Screen
           name="HomeStack"
@@ -195,7 +195,7 @@ function App() {
               />
             ),
           }}  />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="SettingsStack"
           component={SettingsStack}
           options={{
@@ -209,7 +209,7 @@ function App() {
 
               />
             ),
-          }} />
+          }} /> */}
           <Tab.Screen
           name="PromoStack"
           component={PromoStack}

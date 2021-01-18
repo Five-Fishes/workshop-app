@@ -13,11 +13,11 @@ const PageBackground = (props) => {
               flex: 1,
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "#E5E5E5",
+              backgroundColor: "#163460",
             }
       }
     >
-      <LinearGradient
+      {/* <LinearGradient
         colors={["#1C4687", "transparent"]}
         style={{
           position: "absolute",
@@ -26,7 +26,7 @@ const PageBackground = (props) => {
           top: 0,
           height: "100%",
         }}
-      />
+      /> */}
       {props.children}
     </View>
   );
