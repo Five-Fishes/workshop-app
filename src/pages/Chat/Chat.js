@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Button, Alert, Text, FlatList, Image } from "react-native";
 import Background from "../../components/Background/Background";
-import {StyleSheet} from 'react-native';
+import ChatStyle from "./ChatStyle";
 
 
 
-const Message = () => {
+const Chat = () => {
   const Items = [
     {
       Name: "Paul Choi",
@@ -31,20 +31,20 @@ const Message = () => {
   return (
     <Background>
       
-      <View style={styles.container}>
+      <View style={ChatStyle.container}>
       <FlatList
-          style={styles.listView}
+          style={ChatStyle.listView}
           data={Items}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <View style={styles.smallcon}>
-            <View style={styles.itemList}>
-            <Image source={{uri:item.Photo}}  style={styles.pic} />
-              <Text style = {styles.name}>{ item.Name }</Text>
-              <Text style = {styles.time}>{ item.Time }</Text>
+            <View style={ChatStyle.smallcon}>
+            <View style={ChatStyle.itemList}>
+            <Image source={{uri:item.Photo}}  style={ChatStyle.pic} />
+              <Text style = {ChatStyle.name}>{ item.Name }</Text>
+              <Text style = {ChatStyle.time}>{ item.Time }</Text>
             </View>
-            <View style={styles.itemList2}>
-            <Text style = {styles.details}>{ item.Message }</Text>
+            <View style={ChatStyle.itemList2}>
+            <Text style = {ChatStyle.details}>{ item.Message }</Text>
           </View>
           </View>
 
@@ -57,73 +57,4 @@ const Message = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    height:"100%",
-    position: "absolute",
-    top: 75,
-    backgroundColor:"white",
-    borderRadius:33
-  },
-
-  title:{
-    fontSize: 22,
-    paddingHorizontal: 20,
-    paddingVertical:5,
-    fontWeight:"bold",
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
-  },
-
-  itemList: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 15,
-    paddingVertical:13,
-  },
-
-  itemList2: {
-    paddingHorizontal: 13,
-    paddingBottom:8,
-    marginBottom: 3  
-  },
-
-  listView: {
-    borderRadius: 40,
-  },
-
-  smallcon:{
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
-  },
-
-  name:{
-    fontSize: 15,
-    color:"#2D2F2E",
-    fontWeight:"bold"
-  },
-
-  time:{
-    fontSize: 8,
-    color:"#9B9B9B",
-    fontWeight:"bold",
-    paddingVertical:8
-  },
-
-  details:{
-    fontSize: 12,
-    color:"#000000",
-    fontWeight:"bold",
-  },
-
-  pic:{
-    borderRadius:50,
-    width: 68,
-    height: 68,
-  
-  }
-});
-
-export default Message;
+export default Chat;

@@ -1,147 +1,21 @@
 import 'react-native-gesture-handler';
-import
- MaterialCommunityIcons
-from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {
-  createBottomTabNavigator
-} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { HomeStack, AppointmentStack, ChatStack, PromoStack } from "./navigation";
 
-import { HomeScreen, SignInScreen,SettingScreen,PromoScreen,AppointScreen,MessageScreen} from "./pages";
+import { SignInScreen, SettingScreen } from "./pages";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator
-//       screenOptions={{
-//         headerStyle: {
-//           elevation: 0,
-//           shadowOpacity: 0,
-//           backgroundColor: "#1C4687",
-//           borderBottomWidth: 0,
-//         },
-//         headerTintColor: "#fff",
-//         headerTitleStyle: {
-//           fontWeight: "bold",
-//         },
-//       }}
-//       >
-//         <Stack.Screen name="SignIn" component={SignInScreen} options={{ title: "Sign In" }}/>
-//         <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Home" }}/>
-//         <Stack.Screen name="Setting" component={SettingScreen} options={{ title: "Setting" }}/>
-//         <Stack.Screen name="Promo" component={PromoScreen} options={{ title: "Promotion" }}/>
-//         <Stack.Screen name="Appoint" component={AppointScreen} options={{ title: "Appointment Management" }}/>
+const App = () => {
+  const [ authenticated, setAuthenticated ] = React.useState(true);
 
-//         {/* Add Something */}
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-function HomeStack() {
-  return (
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerStyle: { backgroundColor: '#163460' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold' },
-          headerTitleAlign:{headerTitleAlign:'center'}
-        }}>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'TBT WORKSHOP' }}/>
-        
-      </Stack.Navigator>
-  );
-}
-
-function SettingsStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Settings"
-      screenOptions={{
-        headerStyle: { backgroundColor: '#163460' },
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold' },
-        headerTitleAlign:{headerTitleAlign:'center'}
-      }}>
-      <Stack.Screen
-        name="Settings"
-        component={SettingScreen}
-        options={{ title: 'Setting ' }}/>
-      
-    </Stack.Navigator>
-  );
-}
-
-function AppointmentStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Appointment"
-      screenOptions={{
-        headerStyle: { backgroundColor: '#163460' },
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold' },
-        headerTitleAlign:{headerTitleAlign:'center'}
-      }}>
-      <Stack.Screen
-        name="Appointment"
-        component={AppointScreen}
-        options={{ title: 'Appointment' }}/>
-      
-    </Stack.Navigator>
-  );
-}
-
-function MessageStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Message"
-      screenOptions={{
-        headerStyle: { backgroundColor: '#163460' },
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold' },
-        headerTitleAlign:{headerTitleAlign:'center'}
-      }}>
-      <Stack.Screen
-        name="Message"
-        component={MessageScreen}
-        options={{ title: 'Messages' }}/>
-      
-    </Stack.Navigator>
-  );
-}
-
-function PromoStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Promo"
-      screenOptions={{
-        headerStyle: { backgroundColor: '#163460' },
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold' },
-        headerTitleAlign:{headerTitleAlign:'center'}
-      }}>
-      <Stack.Screen
-        name="Promo"
-        component={PromoScreen}
-        options={{ title: 'Manage Promos' }}/>
-      
-    </Stack.Navigator>
-  );
-}
-
-function App() {
-  return (
+  return authenticated ? (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
@@ -149,7 +23,7 @@ function App() {
           activeTintColor: '#163460',
         }}>
         <Tab.Screen
-          name="HomeStack"
+          name="Home"
           component={HomeStack}
           options={{
             tabBarLabel: 'Home',
@@ -162,9 +36,10 @@ function App() {
                 size={size}
               />
             ),
-          }}  />
-          <Tab.Screen
-          name="AppointmentStack"
+          }}
+        />
+        <Tab.Screen
+          name="Appointment"
           component={AppointmentStack}
           options={{
             tabBarLabel: 'Appointment',
@@ -178,12 +53,13 @@ function App() {
 
               />
             ),
-          }}  />
-          <Tab.Screen
-          name="MessageStack"
-          component={MessageStack}
+          }}
+        />
+        <Tab.Screen
+          name="Chat"
+          component={ChatStack}
           options={{
-            tabBarLabel: 'Message',
+            tabBarLabel: 'Chat',
             fontWeight : "bold",
 
             tabBarIcon: ({ color, size }) => (
@@ -194,24 +70,10 @@ function App() {
 
               />
             ),
-          }}  />
-        {/* <Tab.Screen
-          name="SettingsStack"
-          component={SettingsStack}
-          options={{
-            tabBarLabel: 'Settings',
-            fontWeight : "bold",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons
-                name="account-settings"
-                color={color}
-                size={size}
-
-              />
-            ),
-          }} /> */}
-          <Tab.Screen
-          name="PromoStack"
+          }}
+        />
+        <Tab.Screen
+          name="Promotion"
           component={PromoStack}
           options={{
             tabBarLabel: 'Promo',
@@ -225,8 +87,38 @@ function App() {
                 size={size}
               />
             ),
-          }} />
+          }}
+        />
       </Tab.Navigator>
+    </NavigationContainer>
+  ) : (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="SignIn"
+        screenOptions={{
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            backgroundColor: "#1C4687",
+            borderBottomWidth: 0,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        <Stack.Screen
+          name="SignIn"
+          component={SignInScreen}
+          options={{ title: "Sign In" }}
+        />
+        {/* <Stack.Screen
+          name="SignUp"
+          component={SignUpScreen}
+          options={{ title: "Sign Up" }}
+        /> */}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

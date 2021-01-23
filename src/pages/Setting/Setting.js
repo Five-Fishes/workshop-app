@@ -6,7 +6,7 @@ import
 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Background from "../../components/Background/Background";
-import SettingsStyle from "./SettingsStyle";
+import styles from "./SettingsStyle";
 
 const Setting = ({navigation}) => {
 
@@ -42,20 +42,20 @@ const Setting = ({navigation}) => {
 
   return (
     <Background>
-      <View style={SettingsStyle.container}>
+      <View style={styles.container}>
       <View >
-      <Text style ={SettingsStyle.title}>
+      <Text style ={styles.title}>
           Navigation
         </Text>
       </View>
         
         <FlatList
-          style={SettingsStyle.listView}
+          style={styles.listView}
           data={naviItems}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity 
-              style={SettingsStyle.itemList}
+              style={styles.itemList}
               onPress={() => {
                 Alert.alert("Clicked on "+item.Name)
                 // TODO: navigate to repective page
@@ -74,18 +74,18 @@ const Setting = ({navigation}) => {
         </FlatList>
 
         <View >
-          <Text style ={SettingsStyle.title}>
+          <Text style ={styles.title}>
           Modification and Privacy
         </Text>   
         </View>
             
         <FlatList
-          style={SettingsStyle.listView}
+          style={styles.listView}
           data={optionItems}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity 
-              style={SettingsStyle.itemList}
+              style={styles.itemList}
               onPress={() => {
                 Alert.alert("Clicked on "+item.Name)
                 // TODO: navigate to repective page
