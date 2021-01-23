@@ -11,7 +11,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 
-import { HomeScreen, SignInScreen,SettingScreen,PromoScreen,AppointScreen,MessageScreen} from "./pages";
+import { HomeScreen, SignInScreen,SettingScreen,PromoScreen,AppointScreen,ChatScreen} from "./pages";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -114,7 +114,7 @@ function MessageStack() {
       }}>
       <Stack.Screen
         name="Message"
-        component={MessageScreen}
+        component={ChatScreen}
         options={{ title: 'Messages' }}/>
       
     </Stack.Navigator>
