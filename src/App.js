@@ -7,13 +7,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { HomeStack, AppointmentStack, ChatStack, PromoStack } from "./navigation";
 
-import { SignInScreen, SettingScreen } from "./pages";
+import { SignInScreen, SignUpScreen } from "./pages";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const [ authenticated, setAuthenticated ] = React.useState(true);
+  const [ authenticated, setAuthenticated ] = React.useState(false);
 
   return authenticated ? (
     <NavigationContainer>
@@ -113,11 +113,11 @@ const App = () => {
           component={SignInScreen}
           options={{ title: "Sign In" }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
           options={{ title: "Sign Up" }}
-        /> */}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
