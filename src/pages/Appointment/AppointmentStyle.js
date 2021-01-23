@@ -1,33 +1,16 @@
-import { StyleSheet } from "react-native";
-
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  
-  userInfoContainer: {
-    textAlign: "center",
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 20,
-    marginTop: "-5%",
+  container: {
+    flex: 1,
     width: "100%",
-    height: "75%",
+    height:"100%",
+    position: "absolute",
+    top: 75,
+    backgroundColor:"white",
+    borderRadius:33
   },
-  sectionTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  username: {
-    textAlign: "center",
-    fontSize: 20,
-    paddingBottom: 25,
-  },
-  listEleContainer: {
-    marginLeft: "2%",
-    padding: 3,
-  },
-  listElement: {
-    width: "90%",
-  },
+
   buttoncon:{
     flexDirection:"row",
     justifyContent:"space-evenly",

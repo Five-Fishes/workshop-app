@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export default ChatStyle = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
