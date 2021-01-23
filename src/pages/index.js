@@ -11,7 +11,7 @@ export { Home as HomeScreen };
 export { SignIn as SignInScreen };
 export { Setting as SettingScreen };
 export { Promo as PromoScreen };
-export { Appointment as AppointScreen };
+export { Appointment as AppointmentScreen };
 export { Chat as ChatScreen };
 
 
