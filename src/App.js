@@ -8,7 +8,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeStack, AppointmentStack, ChatStack, PromoStack } from "./navigation";
-import { SignInScreen, SettingScreen } from "./pages";
+
+import { SignInScreen, SignUpScreen, SettingScreen } from "./pages";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -94,7 +95,7 @@ const App = () => {
             />
           </Tab.Navigator>
         </NavigationContainer>
-      ) : (
+        ) : (
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="SignIn"
@@ -116,11 +117,11 @@ const App = () => {
               component={SignInScreen}
               options={{ title: "Sign In" }}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
               name="SignUp"
               component={SignUpScreen}
               options={{ title: "Sign Up" }}
-            /> */}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       )}

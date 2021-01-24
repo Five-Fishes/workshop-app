@@ -1,60 +1,71 @@
-import React, { useEffect } from "react";
-import { View, Button, Alert } from "react-native";
-import { useQuery, useMutation } from "@apollo/client";
-import { ALL_IMAGE_STOARGES, CERATE_NEW_IMAGE } from "../../graphql";
-import { signIn } from "../../utils/AuthenticationUtils";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from "react";
+import { View, TextInput, Text, Alert, ImageBackground } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Background } from "../../components";
+import styles from "./SignInStyle";
 
 const SignIn = ({ navigation }) => {
-  // TESTING PURPOSE
-  // const testToken = "PUT_YOUR_TOKEN"
+  const [image, setImage] = useState();
 
-  // useEffect(() => {
-  //   signIn(testToken)
-  //   // const savedToken = await AsyncStorage.getItem("AUTH_TOKEN")
-  //   // console.log(savedToken)
-  // })
-  // const { loading, error, data: imagesData } = useQuery(ALL_IMAGE_STOARGES, {
-  //   variables: { filter: "{}" },
-  // });
+  useEffect(() => {
+    setImage(require("../../staticResources/images/cafixWorkshopLogo.png"));
+  });
 
-  // const [addImage, { data: newImage, error: createImageErr }] = useMutation(
-  //   CERATE_NEW_IMAGE
-  // );
-
-  // const dumbImage = {
-  //   id: null,
-  //   imageURL: "http://www.storage/abc",
-  //   imageSize: 70,
-  //   imageType: "images/jpeg",
-  //   imageFileNm: "Image from Workshop",
-  // };
-
-  // /**
-  //  * Fix
-  //  */
-  // if (imagesData) {
-  //   console.log("imagesData :>> ");
-  // }
-
-  // if (newImage) {
-  //   console.log("newImage :>> ", newImage);
-  // }
-
-  // if (createImageErr) {
-  //   console.log("error :>> ", createImageErr);
-  // }
+  const signIn = () => {
+    // SignIn with GraphQL endpoints
+  }
 
   return (
-    <View>
-      <Button
-        title="Go To Home"
-        onPress={() => {
-          Alert.alert("HOME")
-          // addImage({ variables: { imageStorageInput: dumbImage } });
-        }}
-      />
-    </View>
+    <Background>
+      {image && (
+        <View style={styles.container}>
+          <ImageBackground
+            source={image}
+            style={styles.logoImage}
+          />
+          <View style={styles.loginForm}>
+            <View style={styles.inputBorder}>
+              <TextInput
+                placeholder="Email"
+                textContentType="email"
+                style={styles.input}
+              />
+            </View>
+
+            <View style={styles.inputBorder}>
+              <TextInput
+                placeholder="Password"
+                textContentType="password"
+                style={styles.input}
+              />
+            </View>
+
+            <TouchableOpacity
+              onPress={signIn}
+              style={styles.loginButton}
+            >
+              <Text>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ alignSelf: "center" }}
+              onPress={() => Alert.alert("Forgot Password Pressed")}
+            >
+              <Text
+                style={{ color: "white" }}
+              >
+                Forgot your password?
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ alignSelf: "center" }}
+              onPress={() => navigation.navigate("SignUp")}
+            >
+              <Text style={{ color: "#50BBF6" }}>Register Here</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+    </Background>
   );
 };
 
