@@ -40,9 +40,9 @@ export const DISPATCH_SERVICE = gql`
   }
 `;
 
-export const UPDATE_APPOINMENT = gql`
-  mutation CreateAppointment($appointmentInput: appointmentInput!) {
-    createAppointment(appointmentInput: $appointmentInput) {
+export const UPDATE_DISPATCH_SERVICE = gql`
+  mutation UpdateDispatchService($dispatchServiceInput: DispatchServiceInput!) {
+    updateDispatchService(dispatchServiceInput: $dispatchServiceInput) {
       id
       dispatchTimeStamp
       branch
