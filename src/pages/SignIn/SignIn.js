@@ -3,31 +3,55 @@ import { View, TextInput, Text, Alert, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Background } from "../../components";
 import styles from "./SignInStyle";
+import { GeneralStyles } from "../../components";
 
-const SignIn = ({ navigation }) => {
-  const [image, setImage] = useState();
+import { useMutation } from "@apollo/client";
+import { SIGN_IN } from "../../graphql";
+import { signIn } from "../../utils/AuthenticationUtils";
+
+const SignIn = ({ navigation, route }) => {
+  const [workshopLogo, setWorkshopLogo] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [login, { data: user, error: loginErr }] = useMutation(SIGN_IN);
 
   useEffect(() => {
-    setImage(require("../../staticResources/images/cafixWorkshopLogo.png"));
+    if(!workshopLogo) {
+      setWorkshopLogo(require("../../staticResources/images/cafixWorkshopLogo.png"));
+    }
   });
 
-  const signIn = () => {
+  const verifyLogin = () => {
+    if (email && password) {
+      login({variables: {email: email, password: password}});
+    } else {
+      setErrorMessage("Please Enter you login credentials");
+    }
     // SignIn with GraphQL endpoints
+  }
+
+  if(user) {
+    console.log("SIGNIN: ", user.login.token)
+    signIn(user.login.token);
+    route.params.authHandler(true);
   }
 
   return (
     <Background>
-      {image && (
+      {workshopLogo && (
         <View style={styles.container}>
           <ImageBackground
-            source={image}
+            source={workshopLogo}
             style={styles.logoImage}
           />
           <View style={styles.loginForm}>
             <View style={styles.inputBorder}>
               <TextInput
                 placeholder="Email"
-                textContentType="email"
+                keyboardType="email-address" textContentType="emailAddress"
+                value={email} onChangeText={(value) => setEmail(value)}
                 style={styles.input}
               />
             </View>
@@ -35,17 +59,32 @@ const SignIn = ({ navigation }) => {
             <View style={styles.inputBorder}>
               <TextInput
                 placeholder="Password"
-                textContentType="password"
+                textContentType="password" secureTextEntry={true}
+                value={password} onChangeText={(value) => setPassword(value)}
                 style={styles.input}
               />
             </View>
 
+            {Boolean(errorMessage) && (
+              <Text
+                style={GeneralStyles.errorText}
+              >{errorMessage}</Text>
+            )}
+
+            {Boolean(loginErr) && (
+              <Text
+                style={GeneralStyles.errorText}
+              >{loginErr.message}</Text>
+            )}
+
             <TouchableOpacity
-              onPress={signIn}
+              activeOpacity={0.8}
+              onPress={verifyLogin}
               style={styles.loginButton}
             >
-              <Text>Login</Text>
+              <Text>Log In</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={{ alignSelf: "center" }}
               onPress={() => Alert.alert("Forgot Password Pressed")}
