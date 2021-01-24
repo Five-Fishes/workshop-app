@@ -18,12 +18,14 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
   loginButton: {
-    marginVertical: 50,
+    marginVertical: 30,
     borderRadius: 5,
     backgroundColor: "white",
     alignSelf: "baseline",
     alignSelf: "center",
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    elevation: 8,
   },
   inputBorder: {
     margin: 10,

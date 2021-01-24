@@ -17,6 +17,10 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   const [ authenticated, setAuthenticated ] = React.useState(false);
 
+  const changeAuthenticated = (value) => {
+    setAuthenticated(value);
+  }
+
   return (
     <ApolloProvider client={Client}>
       {authenticated ? (
@@ -116,11 +120,13 @@ const App = () => {
               name="SignIn"
               component={SignInScreen}
               options={{ title: "Sign In" }}
+              initialParams={{ authHandler: changeAuthenticated }}
             />
             <Stack.Screen
               name="SignUp"
               component={SignUpScreen}
               options={{ title: "Sign Up" }}
+              initialParams={{ authHandler: changeAuthenticated }}
             />
           </Stack.Navigator>
         </NavigationContainer>

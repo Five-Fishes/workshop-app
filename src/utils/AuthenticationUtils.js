@@ -1,6 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AUTH_TOKEN = 'AUTH_TOKEN';
+const AUTH_TOKEN = "AUTH_TOKEN";
+const USER_ID = "USER_ID";
 
 let token;
 
@@ -12,6 +13,10 @@ export const getToken = async () => {
   token = await AsyncStorage.getItem(AUTH_TOKEN);
   return token;
 };
+
+export const setUserId = (userId) => {
+  return AsyncStorage.setItem(USER_ID, userId);
+}
 
 export const signIn = (newToken) => {
   token = newToken;

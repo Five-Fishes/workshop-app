@@ -25,6 +25,10 @@ export default StyleSheet.create({
     alignSelf: "center",
     textTransform: "uppercase"
   },
+  dropdown: {
+    // height: 50,
+    width: "90%"
+  },
   errorText: {
     fontSize: 16,
     color: "red",
