@@ -84,48 +84,48 @@ const App = () => {
                 fontWeight : "bold",
                 size : "20",
 
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons
-                name="brightness-percent"
-                color={color}
-                size={size}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
-  ) : (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="SignIn"
-        screenOptions={{
-          headerStyle: {
-            elevation: 0,
-            shadowOpacity: 0,
-            backgroundColor: "#1C4687",
-            borderBottomWidth: 0,
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
-      >
-        <Stack.Screen
-          name="SignIn"
-          component={SignInScreen}
-          options={{ title: "Sign In" }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUpScreen}
-          options={{ title: "Sign Up" }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )}
-  </ApolloProvider>
+                tabBarIcon: ({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="brightness-percent"
+                    color={color}
+                    size={size}
+                  />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+        ) : (
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="SignIn"
+            screenOptions={{
+              headerStyle: {
+                elevation: 0,
+                shadowOpacity: 0,
+                backgroundColor: "#1C4687",
+                borderBottomWidth: 0,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          >
+            <Stack.Screen
+              name="SignIn"
+              component={SignInScreen}
+              options={{ title: "Sign In" }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{ title: "Sign Up" }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      )}
+    </ApolloProvider>
   );
 }
 export default App;
