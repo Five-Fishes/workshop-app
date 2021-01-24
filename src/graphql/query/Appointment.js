@@ -29,7 +29,7 @@ export const APPOINTMENT = gql`
 `;
 
 export const UPDATE_APPOINMENT = gql`
-  mutation CreateAppointment($appointmentInput: appointmentInput!) {
+  mutation CreateAppointment($appointmentInput: AppointmentInput!) {
     createAppointment(appointmentInput: $appointmentInput) {
       id
       appointmentDate
