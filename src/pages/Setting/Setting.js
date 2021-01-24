@@ -1,6 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Alert } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text, FlatList, Alert, TouchableOpacity } from "react-native";
 import
  MaterialCommunityIcons
 from 'react-native-vector-icons/MaterialCommunityIcons';

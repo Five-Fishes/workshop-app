@@ -126,6 +126,7 @@ const App = () => {
               name="SignUp"
               component={SignUpScreen}
               options={{ title: "Sign Up" }}
+              initialParams={{ authHandler: changeAuthenticated }}
             />
           </Stack.Navigator>
         </NavigationContainer>

@@ -1,10 +1,14 @@
 import React from "react";
-import { View } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { CredentialsForm, EmploymentForm, ProfileForm } from "../../components";
 import { useState } from "react";
 import { Background } from "../../components";
 import styles from "./SignUpStyle";
-import { ScrollView } from "react-native-gesture-handler";
+import { GeneralStyles } from "../../components";
+
+import { useMutation } from "@apollo/client";
+import { SIGN_UP } from "../../graphql";
+import { signIn, setUserId } from "../../utils/AuthenticationUtils";
 
 const SECTIONS = {
   CREDENTIALS: "CREDENTIALS",
@@ -12,7 +16,7 @@ const SECTIONS = {
   EMPLOYMENT: "EMPLOYMENT"
 }
 
-const SignUp = () => {
+const SignUp = ({ navigation, route }) => {
   const [ section, setSection ] = useState(SECTIONS.CREDENTIALS)
   const [ userInput, setUserInput ] = useState({
     type: "EMPLOYEE",
@@ -23,18 +27,28 @@ const SignUp = () => {
     lastName: "",
     dateOfBirth: new Date(),
     contactNo: "",
-    vehicle: [],
-    employeeType: "",
+    employeeType: "STAFF",
+    employmentBranch: ""
   })
-
-  const signUp = () => {
-    // Sign up server call here
-    Alert("SIGN UP")
-  }
+  const [register, { data: user, error: registerErr }] = useMutation(SIGN_UP);
 
   const updateSection = (section) => {
-    console.log("UPDATE SECTION", section)
     setSection(section);
+  }
+
+  const signUp = () => {
+    register({variables: {
+      userInput: {
+        ...userInput,
+        dateOfBirth: userInput.dateOfBirth.toISOString()
+      }
+    }});
+  }
+
+  if(user) {
+    signIn(user.signUp.token);
+    setUserId(user.signUp.id);
+    route.params.authHandler(true);
   }
 
   return (
@@ -69,8 +83,15 @@ const SignUp = () => {
             {/* Back Option */}
             <EmploymentForm
               userInput={userInput} setUserInput={setUserInput}
-              submitText="Submit" submitAction={() => signUp}
+              submitText="Submit" submitAction={() => signUp()}
             />
+            {Boolean(registerErr) && (
+              <Text
+                style={GeneralStyles.errorText}
+              >
+                {registerErr.message}
+              </Text>
+            )}
           </View>
         )}
       </ScrollView>

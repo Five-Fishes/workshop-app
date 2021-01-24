@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, Text, Alert, ImageBackground } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, TextInput, Text, Alert, ImageBackground, TouchableOpacity } from "react-native";
 import { Background } from "../../components";
 import styles from "./SignInStyle";
 import { GeneralStyles } from "../../components";
 
 import { useMutation } from "@apollo/client";
 import { SIGN_IN } from "../../graphql";
-import { signIn } from "../../utils/AuthenticationUtils";
+import { signIn, setUserId } from "../../utils/AuthenticationUtils";
 
 const SignIn = ({ navigation, route }) => {
   const [workshopLogo, setWorkshopLogo] = useState(null);
@@ -33,8 +32,8 @@ const SignIn = ({ navigation, route }) => {
   }
 
   if(user) {
-    console.log("SIGNIN: ", user.login.token)
     signIn(user.login.token);
+    setUserId(user.login.id);
     route.params.authHandler(true);
   }
 
