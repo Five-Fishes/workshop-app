@@ -1,18 +1,24 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import GeneralStyles from "../../../components/Styling/GeneralStyle";
 import styles from "../AppointmentStyle";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ALL_APPOINTMENTS } from "../../../graphql";
 import { useLazyQuery } from "@apollo/client";
-import { useState } from "react/cjs/react.development";
-import ModalComponent from "./Modal";
+import { getUserInfo } from "../../../utils/AuthenticationUtils";
+// import ModalComponent from "./Modal";
 
 const userImagePlaceholder = require("../../../staticResources/images/userPlaceholder.png");
 
 export default (props) => {
+  const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
+    if (!userInfo) {
+      getUserInfo()
+      .then(res => {
+        setUserInfo(res)
+      })
+    }
     if (!allAcceptedCalled && !acceptedAppointments) {
       refreshAppointments()
     }
@@ -28,7 +34,6 @@ export default (props) => {
   }] = useLazyQuery(ALL_APPOINTMENTS);
 
   const handleView = (appointment) => {
-    console.log(appointment)
     setSelectedAppointment(appointment);
   }
   const refreshAppointments = () => {
@@ -57,8 +62,8 @@ export default (props) => {
               {/* TODO: replace with user image */}
               <Image source={userImagePlaceholder} style={styles.pic} />
               <View style={styles.itemList3}>
-                {item.serviceID.serviceNm && (<Text style = {styles.name}>{ item.serviceID.serviceNm }</Text>)}
-                {item.customerID.firstName && (<Text style = {styles.name}>{ item.customerID.firstName } { item.customerID.lastName }</Text>)}
+                {item.service.serviceNm && (<Text style = {styles.name}>{ item.service.serviceNm }</Text>)}
+                {item.customer.firstName && (<Text style = {styles.name}>{ item.customer.firstName + " " + item.customer.lastName }</Text>)}
                 <Text style = {styles.time}>{ new Date(item.appointmentDate).toDateString() }</Text>
               </View>
             </View>

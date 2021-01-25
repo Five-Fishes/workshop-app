@@ -1,17 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity, Image, Alert } from "react-native";
-import { GeneralStyles, ToastMessage } from "../../../components";
+import { GeneralStyles } from "../../../components";
 import styles from "../AppointmentStyle";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ALL_APPOINTMENTS, UPDATE_APPOINMENT } from "../../../graphql";
 import { useLazyQuery, useMutation } from "@apollo/client";
-// import { ToastMessage } from "../../../components/Notify/Toast";
+import { getUserInfo } from "../../../utils/AuthenticationUtils";
 
 const userImagePlaceholder = require("../../../staticResources/images/userPlaceholder.png");
 
 export default (props) => {
+  const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
+    if (!userInfo) {
+      getUserInfo()
+      .then(res => {
+        setUserInfo(res)
+      })
+    }
     if ((!allPendingCalled && !pendingAppointments)) {
       fetchAppointments()
     }

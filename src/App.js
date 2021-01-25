@@ -7,7 +7,7 @@ import { Client } from "./graphql";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeStack, AppointmentStack, ChatStack, PromoStack } from "./navigation";
+import { HomeStack, AppointmentStack, DispatchServiceStack, ChatStack, PromoStack } from "./navigation";
 
 import { SignInScreen, SignUpScreen, SettingScreen } from "./pages";
 import { getUserInfo } from './utils/AuthenticationUtils';
@@ -43,7 +43,7 @@ const App = () => {
                   <MaterialCommunityIcons
                     name="home"
                     color={color}
-                    size={size}
+                    size={30}
                   />
                 ),
               }}
@@ -57,10 +57,25 @@ const App = () => {
 
                 tabBarIcon: ({ color, size }) => (
                   <MaterialCommunityIcons
+                    name="store"
+                    color={color}
+                    size={30}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Dispatch"
+              component={DispatchServiceStack}
+              options={{
+                tabBarLabel: 'Dispatch',
+                fontWeight : "bold",
+
+                tabBarIcon: ({ color, size }) => (
+                  <MaterialCommunityIcons
                     name="car-estate"
                     color={color}
-                    size={size}
-
+                    size={30}
                   />
                 ),
               }}
@@ -76,8 +91,7 @@ const App = () => {
                   <MaterialCommunityIcons
                     name="message"
                     color={color}
-                    size={size}
-
+                    size={30}
                   />
                 ),
               }}
@@ -94,7 +108,7 @@ const App = () => {
                   <MaterialCommunityIcons
                     name="brightness-percent"
                     color={color}
-                    size={size}
+                    size={30}
                   />
                 ),
               }}

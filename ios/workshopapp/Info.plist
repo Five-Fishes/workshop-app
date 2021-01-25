@@ -55,5 +55,31 @@
 	<false/>
   <key>UIStatusBarStyle</key>
   <string>UIStatusBarStyleDefault</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+			<string>comgooglemaps</string>
+			<string>citymapper</string>
+			<string>uber</string>
+			<string>lyft</string>
+			<string>transit</string>
+			<string>truckmap</string>
+			<string>waze</string>
+			<string>yandexnavi</string>
+			<string>moovit</string>
+			<string>yandextaxi</string>
+			<string>yandexmaps</string>
+			<string>kakaomap</string>
+			<string>szn-mapy</string>
+			<string>mapsme</string>
+			<string>osmandmaps</string>
+			<string>gett</string>
+			<string>nmap</string>
+	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow Workshop App to use your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow Workshop App to use your location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow Workshop App to use your location</string>
 </dict>
 </plist>

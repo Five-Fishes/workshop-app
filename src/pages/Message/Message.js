@@ -1,28 +1,25 @@
 import React, { useState, useCallback, useEffect } from "react";
+// Reference on GiftedChat https://github.com/FaridSafi/react-native-gifted-chat
 import { GiftedChat } from "react-native-gifted-chat";
 import { ALL_MESSAGES, NEW_MESSAGE } from "../../graphql";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { getUserInfo } from "../../utils/AuthenticationUtils";
-import { Text, View } from "react-native";
+import { Alert } from "react-native";
 
 const userImagePlaceholder = require("../../staticResources/images/userPlaceholder.png");
 
-export default Message = ({props, route}) => {
+const Message = ({props, route}) => {
   const [userInfo, setUserInfo] = useState();
-  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    console.log(route.params.conversationId)
     if (!userInfo) {
       getUserInfo()
       .then(res => {
-        console.log("EFECT", res);
         setUserInfo(res)
       })
     }
   }, [])
 
-  // const [getAllMessage, {data: messageList, error: getMessagesErr}] =  useLazyQuery(ALL_MESSAGES);
   const {data: messageList, error: getMessagesErr, refetch} =  useQuery(ALL_MESSAGES, {variables: {
     filter: JSON.stringify({
       chatID: route.params.conversationId
@@ -30,16 +27,12 @@ export default Message = ({props, route}) => {
   }});
 
   const [createNewMessage, {data: newMessage, error: createMessageErr}] = useMutation(NEW_MESSAGE, {
-    refetchQueries: [ {query: ALL_MESSAGES} ]
+    refetchQueries: [ {query: ALL_MESSAGES, variables: {
+      filter: JSON.stringify({
+        chatID: route.params.conversationId
+      })
+    }} ]
   });
-
-  // const fetchMessages = () => {
-    // getAllMessage({variables: {
-    //   filter: JSON.stringify({
-    //     chatID: route.params.conversationId
-    //   })
-    // }})
-  // }
 
   const onSend = useCallback((messages = []) => {
     console.log("MESSAGE", messages)
@@ -50,33 +43,10 @@ export default Message = ({props, route}) => {
     console.log(messageInput)
     createNewMessage({
       variables: {messageInput: messageInput}})
-      
-      // refetch({variables: {
-      //   filter: JSON.stringify({
-      //     chatID: route.params.conversationId
-      //   })
-      // }})
-    // })
-    // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
 
-  if(newMessage) {
-    console.log("NEW MESSAGE: ", newMessage);
-    // messageList.getMessages.push(newMessage)
-    refetch({variables: {
-      filter: JSON.stringify({
-        chatID: route.params.conversationId
-      })
-    }})
-  }
   if (createMessageErr) {
-    console.log('ERR: ', createMessageErr.message)
-  }
-  if (getMessagesErr) {
-    console.log('ERR: ', getMessagesErr.message)
-  }
-  if (messageList) {
-    console.log(messageList);
+    Alert.alert(createMessageErr.message)
   }
 
   return messageList ?(
@@ -85,6 +55,8 @@ export default Message = ({props, route}) => {
       onSend={messages => onSend(messages)}
       user={{
         _id: userInfo ? userInfo.userId : 1,
+        name: "",
+        avatar: userImagePlaceholder,
       }}
     />
   ) : (
@@ -97,3 +69,5 @@ export default Message = ({props, route}) => {
     />
   )
 }
+
+export default Message;
