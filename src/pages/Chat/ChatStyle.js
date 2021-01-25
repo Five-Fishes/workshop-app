@@ -6,7 +6,7 @@ export default StyleSheet.create({
     width: "100%",
     height:"100%",
     position: "absolute",
-    top: 75,
+    top: 50,
     backgroundColor:"white",
     borderRadius:33
   },
@@ -22,9 +22,14 @@ export default StyleSheet.create({
 
   itemList: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     paddingHorizontal: 15,
     paddingVertical:13,
+  },
+
+  chatInfo: {
+    paddingLeft: 15,
+    
   },
 
   itemList2: {

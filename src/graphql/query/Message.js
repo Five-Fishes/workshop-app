@@ -4,26 +4,16 @@ export const ALL_MESSAGES = gql`
   query GetMessages($filter: String) {
     getMessages(filter: $filter) {
       id
+      _id
       chatID
       messageType
       messageText
-      image {
-        imageSize
-        imageURL
-        imageFileNm
-        imageType
-      }
-      audio {
-        audioContent
-        audioURL
-        audioType
-        audioLength
-      }
-      video {
-        videoSize
-        videoURL
-        videoFileNm
-        videoType
+      image 
+      audio
+      video
+      text
+      user {
+        _id
       }
       sender {
         id
@@ -40,32 +30,18 @@ export const MESSAGE = gql`
   query GetMessage($id: ID!) {
     getMessage(id: $id) {
       id
+      _id
       chatID
       messageType
       messageText
-      image {
-        imageSize
-        imageURL
-        imageFileNm
-        imageType
-      }
-      audio {
-        audioContent
-        audioURL
-        audioType
-        audioLength
-      }
-      video {
-        videoSize
-        videoURL
-        videoFileNm
-        videoType
-      }
       sender {
         id
         type
         firstName
         lastName
+      }
+      user {
+        _id
       }
       createdAt
     }
@@ -73,35 +49,21 @@ export const MESSAGE = gql`
 `;
 
 export const NEW_MESSAGE = gql`
-  mutation CreateMessage($messageInput: MessageInput) {
+  mutation CreateMessage($messageInput: MessageInput!) {
     createMessage(messageInput: $messageInput) {
       id
+      _id
       chatID
       messageType
       messageText
-      image {
-        imageSize
-        imageURL
-        imageFileNm
-        imageType
-      }
-      audio {
-        audioContent
-        audioURL
-        audioType
-        audioLength
-      }
-      video {
-        videoSize
-        videoURL
-        videoFileNm
-        videoType
-      }
       sender {
         id
         type
         firstName
         lastName
+      }
+      user {
+        _id
       }
       createdAt
     }

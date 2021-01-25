@@ -97,15 +97,15 @@ export default StyleSheet.create({
   },
 
   name:{
-    fontSize: 8,
-    color:"#9B9B9B",
+    fontSize: 13,
+    color:"#2D2F2E",
     fontWeight:"bold",
     paddingVertical:8
   },
 
   time:{
-    fontSize: 15,
-    color:"#2D2F2E",
+    fontSize: 12,
+    color:"#9B9B9B",
     fontWeight:"bold"
   },
 
