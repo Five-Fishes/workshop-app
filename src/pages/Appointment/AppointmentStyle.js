@@ -6,7 +6,7 @@ export default StyleSheet.create({
     width: "100%",
     height:"100%",
     position: "absolute",
-    top: 75,
+    top: 50,
     backgroundColor:"white",
     borderRadius:33
   },
@@ -60,6 +60,7 @@ export default StyleSheet.create({
     width:108,
     height:38,
     backgroundColor:"#F54136",
+    color: "white",
     borderWidth:0.5,
   },
 
@@ -86,7 +87,9 @@ export default StyleSheet.create({
   },
 
   listView: {
+    height: "80%",
     borderRadius: 40,
+    flexGrow: 1
   },
 
   smallcon:{
@@ -94,16 +97,16 @@ export default StyleSheet.create({
   },
 
   name:{
-    fontSize: 15,
-    color:"#2D2F2E",
-    fontWeight:"bold"
-  },
-
-  time:{
     fontSize: 8,
     color:"#9B9B9B",
     fontWeight:"bold",
     paddingVertical:8
+  },
+
+  time:{
+    fontSize: 15,
+    color:"#2D2F2E",
+    fontWeight:"bold"
   },
 
   details:{

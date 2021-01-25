@@ -5,10 +5,19 @@ export const ALL_APPOINTMENTS = gql`
     appointments(filter: $filter) {
       id
       appointmentDate
-      customerID
-      branchID
+      customerID {
+        firstName
+        lastName
+        contactNo
+      }
+      branchID {
+        branchAddr
+        branchContactNo
+      }
+      serviceID {
+        serviceNm
+      }
       vehicleID
-      serviceID
       appointmentStatus
     }
   }
@@ -19,24 +28,42 @@ export const APPOINTMENT = gql`
     appointment(id: $id) {
       id
       appointmentDate
-      customerID
-      branchID
+      customerID {
+        firstName
+        lastName
+        contactNo
+      }
+      branchID {
+        branchAddr
+        branchContactNo
+      }
+      serviceID {
+        serviceNm
+      }
       vehicleID
-      serviceID
       appointmentStatus
     }
   }
 `;
 
 export const UPDATE_APPOINMENT = gql`
-  mutation CreateAppointment($appointmentInput: AppointmentInput!) {
-    createAppointment(appointmentInput: $appointmentInput) {
+  mutation UpdateAppointment($appointmentInput: AppointmentInput!) {
+    updateAppointment(appointmentInput: $appointmentInput) {
       id
       appointmentDate
-      customerID
-      branchID
+      customerID {
+        firstName
+        lastName
+        contactNo
+      }
+      branchID {
+        branchAddr
+        branchContactNo
+      }
+      serviceID {
+        serviceNm
+      }
       vehicleID
-      serviceID
       appointmentStatus
     }
   }

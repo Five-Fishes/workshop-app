@@ -5,6 +5,7 @@ export default StyleSheet.create({
   errorText: {
     fontSize: 16,
     color: "red",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    alignSelf: "center"
   },
 })

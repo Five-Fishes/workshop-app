@@ -1,24 +1,19 @@
-import React from "react";
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
-import GeneralStyles from "../../../components/Styling/GeneralStyle";
+import React, { useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity, Image, Alert } from "react-native";
+import { GeneralStyles, ToastMessage } from "../../../components";
 import styles from "../AppointmentStyle";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ALL_APPOINTMENTS, UPDATE_APPOINMENT } from "../../../graphql";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { useEffect } from "react";
+// import { ToastMessage } from "../../../components/Notify/Toast";
 
 const userImagePlaceholder = require("../../../staticResources/images/userPlaceholder.png");
 
 export default (props) => {
 
-  const APPOINTMENT_STATUS = {
-    PENDING: "PENDING",
-    ACCEPTED: "ACCEPTED"
-  }
-
   useEffect(() => {
-    if (!allPendingCalled && !pendingAppointments) {
-      refreshAppointments()
+    if ((!allPendingCalled && !pendingAppointments)) {
+      fetchAppointments()
     }
   })
 
@@ -26,66 +21,88 @@ export default (props) => {
     called: allPendingCalled, 
     loading: allPendingLoading, 
     data: pendingAppointments,
-    error: allPendingErr
+    error: allPendingErr,
+    refetch
   }] = useLazyQuery(ALL_APPOINTMENTS);
 
-  const [updateAppointment, { data: appointment, error: updateErr }] = useMutation(UPDATE_APPOINMENT);
+  const [updateAppointment, { 
+    data: appointmentUpdate, error: updateErr, called: updateCalled
+  }] = useMutation(UPDATE_APPOINMENT);
 
-  const refreshAppointments = () => {
+  const fetchAppointments = () => {
+    console.log("REFRESH")
     // TODO: Replace with async storage
     // branchID: AsyncStorage.getItem("BRANCH_ID"),
     const filter = {
       branchID: "60082edcbc6b09993f1ae93e",
-      appointmentStatus: APPOINTMENT_STATUS.PENDING
+      appointmentStatus: props.statuses.PENDING
     }
-    console.log(filter)
+    console.log(JSON.stringify(filter))
     getAllPendingAppointments({variables: {filter: JSON.stringify(filter)}});
   }
 
   const handleUpdate = (appointment, status) => {
     updateAppointment({variables: {
-      ...appointment,
-      appointmentStatus: status
+      appointmentInput: {
+        id: appointment.id,
+        appointmentDate: appointment.appointmentDate,
+        appointmentStatus: status,
+        branchID: appointment.branchID,
+        customerID: appointment.customerID,
+        serviceID: appointment.serviceID,
+        vehicleID: appointment.vehicleID
+      }
     }})
   }
-  if(allPendingErr) {
-    console.log(allPendingErr.graphQLErrors)
-    console.log(allPendingErr.message)
+  if (updateErr) {
+    Alert.alert("Error", updateErr.message);
+    const filter = {
+      branchID: "60082edcbc6b09993f1ae93e",
+      appointmentStatus: props.statuses.PENDING
+    }
+    refetch({variables: {filter: JSON.stringify(filter)}});
+    // ToastMessage({message: updateErr.message, title: "Error"});
   }
-  if (pendingAppointments) {
-    console.log(pendingAppointments.appointments[0])
+  
+  if(appointmentUpdate) {
+    console.log(appointmentUpdate, updateCalled)
+    Alert.alert("Success", "Appointment Updated");
+    // refreshAppointments()
+    // ToastMessage({message:"Appointment Updated",title:"Success"});
   }
 
-  if (!allPendingLoading && pendingAppointments && pendingAppointments.appointments && pendingAppointments.appointments.length > 0) {
+  if (allPendingCalled && pendingAppointments) {
+    const appointments = pendingAppointments.appointments
     return (
       <FlatList
         style={styles.listView}
-        data={pendingAppointments.appointments}
+        data={appointments}
+        extraData={pendingAppointments.appointments}
         keyExtractor={(appointment) => appointment.id.toString()}
-        renderItem={({ appointment }) => (
+        renderItem={({item}) => (
           <View style={styles.smallcon}>
-            {console.log(appointment)}
             <View style={styles.itemList}>
               {/* TODO: replace with user image */}
-              <Image source={{userImagePlaceholder}} style={styles.pic} />
+              <Image source={userImagePlaceholder} style={styles.pic} />
               <View style={styles.itemList3}>
-                {/* <Text style = {styles.name}>{ appointment.serviceID }</Text> */}
-                <Text style = {styles.time}>{ new Date(appointment.appointmentDate) }</Text>
+                {item.serviceID.serviceNm && (<Text style = {styles.name}>{ item.serviceID.serviceNm }</Text>)}
+                {item.customerID.firstName && (<Text style = {styles.name}>{ item.customerID.firstName } { item.customerID.lastName }</Text>)}
+                <Text style = {styles.time}>{ (new Date(item.appointmentDate).toDateString()) }</Text>
               </View>
             </View>
             <View style={styles.buttoncon2}>
               <TouchableOpacity 
                   style={styles.buttonaccept}
                   onPress={() => {
-                    handleUpdate(appointment, APPOINTMENT_STATUS.ACCEPTED)
+                    handleUpdate(item, props.statuses.ACCEPTED)
                   }}
                 >
                   <Text>Accpet</Text>
               </TouchableOpacity>
               <TouchableOpacity 
-                  style={styles.buttonaccept}
+                  style={styles.buttonreject}
                   onPress={() => {
-                    handleUpdate(appointment, APPOINTMENT_STATUS.REJECTED)
+                    handleUpdate(item, props.statuses.REJECTED)
                   }}
                 >
                   <Text>Reject</Text>

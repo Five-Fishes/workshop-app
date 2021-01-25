@@ -1,12 +1,18 @@
 import React from "react";
 import { useState } from "react";
-import { View, Alert, Text, Image, FlatList,TouchableOpacity, ScrollView  } from "react-native";
+import { View, Alert, Text, Image, FlatList, TouchableOpacity  } from "react-native";
 import Background from "../../components/Background/Background";
 import styles from "./AppointmentStyle";
 import PendingAppointmentsList from "./components/PendingAppointments";
 import AcceptedAppointmentsList from "./components/AcceptedAppointments";
 
 const Appointment = ({navigation} ) => {
+
+  const APPOINTMENT_STATUS = {
+    PENDING: "PENDING",
+    ACCEPTED: "ACCEPTED"
+  }
+
   const Items = [
     {
       Name: "Towing Service",
@@ -45,8 +51,7 @@ const Appointment = ({navigation} ) => {
 
   return (
     <Background>
-      
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.buttoncon}>
           <TouchableOpacity 
             style={styles.button}
@@ -69,13 +74,13 @@ const Appointment = ({navigation} ) => {
         </View>
         <View>
           {Boolean(tab === tabs.PENDING) && (
-            <PendingAppointmentsList />
+            <PendingAppointmentsList statuses={APPOINTMENT_STATUS} />
           )}
           {Boolean(tab === tabs.ACCEPTED) && (
-            <AcceptedAppointmentsList />
+            <AcceptedAppointmentsList statuses={APPOINTMENT_STATUS} />
           )}
         </View>
-      </ScrollView>
+      </View>
     </Background>
   );
 };
