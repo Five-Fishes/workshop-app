@@ -6,11 +6,14 @@ import { GeneralStyles } from "../../components";
 import { ALL_DISPATCH_SERVICES, UPDATE_DISPATCH_SERVICE } from "../../graphql";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { getUserInfo } from "../../utils/AuthenticationUtils";
+import { showLocation } from "react-native-map-link";
+import * as Location from "expo-location";
 
 const userImagePlaceholder = require("../../staticResources/images/userPlaceholder.png");
 
 const DispatchService = ({navigation, route} ) => {
   const [userInfo, setUserInfo] = useState();
+  const [userLocation, setuserLocation] = useState(null);
 
   useEffect(() => {
     if (!userInfo) {
@@ -24,6 +27,17 @@ const DispatchService = ({navigation, route} ) => {
         getALlDispatchServices({variables: JSON.stringify(filter)});
       })
     }
+    // Request User Location permission
+    // (async () => {
+    //   let { status } = await Location.requestPermissionsAsync();
+    //   if (status !== 'granted') {
+    //     Alert.alert('Permission to access location was denied');
+    //     return;
+    //   }
+
+    //   let location = await Location.getCurrentPositionAsync({});
+    //   setuserLocation(location);
+    // })()
   }, [])
 
   const DISPATCH_STATUS = {
@@ -74,6 +88,25 @@ const DispatchService = ({navigation, route} ) => {
 
   const navigate = (location) => {
     const coordinate = location.split(",");
+    if(coordinate.length === 2) {
+      showLocation({
+        latitude: location[0],
+        longitude: location[1],
+        // sourceLatitude: userLocation[1],  // optionally specify starting location for directions
+        // sourceLongitude: userLocation[0],  // not optional if sourceLatitude is specified
+        // title: 'The White House',  // optional
+        // googleForceLatLon: false,  // optionally force GoogleMaps to use the latlon for the query instead of the title
+        // googlePlaceId: 'ChIJGVtI4by3t4kRr51d_Qm_x58',  // optionally specify the google-place-id
+        // alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
+        dialogTitle: 'Navigation', // optional (default: 'Open in Maps')
+        dialogMessage: 'Navigate to Customer Location', // optional (default: 'What app would you like to use?')
+        cancelText: 'Cancel Navigate', // optional (default: 'Cancel')
+        appsWhiteList: ['waze', 'google-maps', 'apple-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
+        // naverCallerName: 'com.example.myapp' // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
+        // appTitles: { 'google-maps': 'My custom Google Maps title' } // optionally you can override default app titles
+        // app: 'uber'  // optionally specify specific app to use
+      })
+    }
     console.log(coordinate);
   }
 

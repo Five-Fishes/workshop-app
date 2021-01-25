@@ -8,5 +8,16 @@
     "assetBundlePatterns": [
       "**/*"
     ]
+  },
+  "ios": {
+    "infoPlist": {
+      "LSApplicationQueriesSchemes": [
+        "comgooglemaps",
+        "citymapper",
+        "uber",
+        "lyft",
+        "waze"
+      ]
+    }
   }
 }
