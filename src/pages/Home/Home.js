@@ -1,4 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -9,9 +12,22 @@ import {
   Image
 } from 'react-native';
 import Background from "../../components/Background/Background";
+import { getUserInfo } from '../../utils/AuthenticationUtils';
 
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(() => {
+    if (!userInfo) {
+      getUserInfo()
+      .then(res => {
+        setUserInfo(res)
+      })
+    }
+  })
+
   const Items = [
     {
       Name: "Towing Service",

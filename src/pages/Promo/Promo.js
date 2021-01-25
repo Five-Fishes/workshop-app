@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Button, Alert,FlatList,Image,TouchableOpacity } from "react-native";
 import Background from "../../components/Background/Background";
+import styles from "./PromoStyle";
 
 
 const Promo = () => {

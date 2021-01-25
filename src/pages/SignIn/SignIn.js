@@ -6,7 +6,7 @@ import { GeneralStyles } from "../../components";
 
 import { useMutation } from "@apollo/client";
 import { SIGN_IN } from "../../graphql";
-import { signIn, setUserId } from "../../utils/AuthenticationUtils";
+import { signIn, setUserInfo } from "../../utils/AuthenticationUtils";
 
 const SignIn = ({ navigation, route }) => {
   const [workshopLogo, setWorkshopLogo] = useState(null);
@@ -32,8 +32,10 @@ const SignIn = ({ navigation, route }) => {
   }
 
   if(user) {
+    console.log("SIGN IN ", user)
+    // TODO: Check if user.login.type === EMPLOYEE
     signIn(user.login.token);
-    setUserId(user.login.id);
+    setUserInfo(user.login);
     route.params.authHandler(true);
   }
 
