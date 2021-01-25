@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const [ authenticated, setAuthenticated ] = React.useState(false);
+  const [ authenticated, setAuthenticated ] = React.useState(true);
 
   const changeAuthenticated = (value) => {
     setAuthenticated(value);

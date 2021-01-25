@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Button, Alert, Text, Image, FlatList,TouchableOpacity  } from "react-native";
+import { useState } from "react";
+import { View, Alert, Text, Image, FlatList,TouchableOpacity, ScrollView  } from "react-native";
 import Background from "../../components/Background/Background";
 import styles from "./AppointmentStyle";
-
+import PendingAppointmentsList from "./components/PendingAppointments";
+import AcceptedAppointmentsList from "./components/AcceptedAppointments";
 
 const Appointment = ({navigation} ) => {
   const Items = [
@@ -32,115 +34,48 @@ const Appointment = ({navigation} ) => {
     }
   ];
 
-  
-
+  const tabs = {
+    "PENDING": "Pending",
+    "ACCEPTED": "Accepted"
+  }
+  const [tab, setTab] = useState(tabs.PENDING);
+  const triggerTab = (tabSelected) => {
+    setTab(tabSelected);
+  }
 
   return (
     <Background>
       
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.buttoncon}>
           <TouchableOpacity 
-                style={styles.button}
-                onPress={() => {
-                  Alert.alert("Today")
-                }}
-              >
-                <Text>Today</Text>
+            style={styles.button}
+            onPress={() => {
+              console.log(tabs.PENDING)
+              triggerTab(tabs.PENDING)
+            }}
+          >
+            <Text>{tabs.PENDING}</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-                style={styles.button}
-                onPress={() => {
-                  Alert.alert("Tomorrow")
-                }}
-              >
-                <Text>Tomorrow</Text>
-          </TouchableOpacity>
-          <TouchableOpacity 
-                style={styles.button}
-                onPress={() => {
-                  Alert.alert("Others")
-                }}
-              >
-                <Text>Others</Text>
+            style={styles.button}
+            onPress={() => {
+              console.log(tabs.ACCEPTED)
+              triggerTab(tabs.ACCEPTED)
+            }}
+          >
+            <Text>{tabs.ACCEPTED}</Text>
           </TouchableOpacity>
         </View>
-          <FlatList
-          style={styles.listView}
-          data={Items}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.smallcon}>
-            <View style={styles.itemList}>
-              <Image source={{uri:item.Photo}}  style={styles.pic} />
-              <View style={styles.itemList3}>
-                <Text style = {styles.name}>{ item.Name }</Text>
-                <Text style = {styles.time}>{ item.Time }</Text>
-              </View>
-            </View>
-            <View style={styles.buttoncon2}>
-            <TouchableOpacity 
-                style={styles.buttonaccept}
-                onPress={() => {
-                  Alert.alert("Accept")
-                }}
-              >
-                <Text>Accept</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-                style={styles.buttonreject}
-                onPress={() => {
-                  Alert.alert("Reject")
-                }}
-              >
-                <Text>Reject</Text>
-          </TouchableOpacity>
-          </View>
-          </View>
-
+        <View>
+          {Boolean(tab === tabs.PENDING) && (
+            <PendingAppointmentsList />
           )}
-        >
-        </FlatList>
-        <View style={{
-    paddingHorizontal: 15,
-    paddingVertical:3}}>
-          <Text style = {styles.name}>
-          Accepted request(2)
-        </Text>
+          {Boolean(tab === tabs.ACCEPTED) && (
+            <AcceptedAppointmentsList />
+          )}
         </View>
-
-        
-        <FlatList
-          style={styles.listView}
-          data={Accepted}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.smallcon}>
-            <View style={styles.itemList}>
-              <Image source={{uri:item.Photo}}  style={styles.pic} />
-              <View style={styles.itemList3}>
-                <Text style = {styles.name}>{ item.Name }</Text>
-                <Text style = {styles.time}>{ item.Time }</Text>
-              </View>
-            <View style ={{marginVertical:20}}>
-              <TouchableOpacity 
-                style={styles.buttonaccept}
-                onPress={() => {
-                  Alert.alert("View")
-                }}
-              >
-                <Text>View</Text>
-            </TouchableOpacity>
-            </View>
-
-            </View>
-          </View>
-
-          )}
-        >
-        </FlatList>
-    </View>
-
+      </ScrollView>
     </Background>
   );
 };
