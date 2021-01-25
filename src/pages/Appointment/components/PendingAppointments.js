@@ -27,17 +27,15 @@ export default (props) => {
 
   const [updateAppointment, { 
     data: appointmentUpdate, error: updateErr, called: updateCalled
-  }] = useMutation(UPDATE_APPOINMENT);
+  }] = useMutation(UPDATE_APPOINMENT, [{refetchQueries: ALL_APPOINTMENTS}]);
 
   const fetchAppointments = () => {
-    console.log("REFRESH")
     // TODO: Replace with async storage
     // branchID: AsyncStorage.getItem("BRANCH_ID"),
     const filter = {
       branchID: "60082edcbc6b09993f1ae93e",
       appointmentStatus: props.statuses.PENDING
     }
-    console.log(JSON.stringify(filter))
     getAllPendingAppointments({variables: {filter: JSON.stringify(filter)}});
   }
 
@@ -65,7 +63,6 @@ export default (props) => {
   }
   
   if(appointmentUpdate) {
-    console.log(appointmentUpdate, updateCalled)
     Alert.alert("Success", "Appointment Updated");
     // refreshAppointments()
     // ToastMessage({message:"Appointment Updated",title:"Success"});
@@ -85,8 +82,8 @@ export default (props) => {
               {/* TODO: replace with user image */}
               <Image source={userImagePlaceholder} style={styles.pic} />
               <View style={styles.itemList3}>
-                {item.serviceID.serviceNm && (<Text style = {styles.name}>{ item.serviceID.serviceNm }</Text>)}
-                {item.customerID.firstName && (<Text style = {styles.name}>{ item.customerID.firstName } { item.customerID.lastName }</Text>)}
+                {item.customer.firstName && (<Text style = {styles.name}>{ item.customer.firstName + " " + item.customer.lastName }</Text>)}
+                {item.service.serviceNm && (<Text style = {styles.time}>{ item.service.serviceNm }</Text>)}
                 <Text style = {styles.time}>{ (new Date(item.appointmentDate).toDateString()) }</Text>
               </View>
             </View>

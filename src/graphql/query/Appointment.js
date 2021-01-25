@@ -5,19 +5,25 @@ export const ALL_APPOINTMENTS = gql`
     appointments(filter: $filter) {
       id
       appointmentDate
-      customerID {
+      customer {
         firstName
         lastName
-        contactNo
       }
-      branchID {
+      branch {
         branchAddr
-        branchContactNo
       }
-      serviceID {
+      vehicle {
+        vehicleBrand
+        vehicleModel
+        vehiclePlateNumber
+      }
+      service {
         serviceNm
       }
+      customerID
+      branchID
       vehicleID
+      serviceID
       appointmentStatus
     }
   }
@@ -28,19 +34,25 @@ export const APPOINTMENT = gql`
     appointment(id: $id) {
       id
       appointmentDate
-      customerID {
+      customer {
         firstName
         lastName
-        contactNo
       }
-      branchID {
+      branch {
         branchAddr
-        branchContactNo
       }
-      serviceID {
+      vehicle {
+        vehicleBrand
+        vehicleModel
+        vehiclePlateNumber
+      }
+      service {
         serviceNm
       }
+      customerID
+      branchID
       vehicleID
+      serviceID
       appointmentStatus
     }
   }
@@ -51,18 +63,9 @@ export const UPDATE_APPOINMENT = gql`
     updateAppointment(appointmentInput: $appointmentInput) {
       id
       appointmentDate
-      customerID {
-        firstName
-        lastName
-        contactNo
-      }
-      branchID {
-        branchAddr
-        branchContactNo
-      }
-      serviceID {
-        serviceNm
-      }
+      customerID
+      branchID 
+      serviceID 
       vehicleID
       appointmentStatus
     }
