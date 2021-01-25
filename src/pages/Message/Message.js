@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+// Reference on GiftedChat https://github.com/FaridSafi/react-native-gifted-chat
 import { GiftedChat } from "react-native-gifted-chat";
 import { ALL_MESSAGES, NEW_MESSAGE } from "../../graphql";
 import { useMutation, useQuery } from "@apollo/client";
@@ -7,7 +8,7 @@ import { Alert } from "react-native";
 
 const userImagePlaceholder = require("../../staticResources/images/userPlaceholder.png");
 
-export default Message = ({props, route}) => {
+const Message = ({props, route}) => {
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
@@ -68,3 +69,5 @@ export default Message = ({props, route}) => {
     />
   )
 }
+
+export default Message;
