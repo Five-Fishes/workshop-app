@@ -10,12 +10,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeStack, AppointmentStack, ChatStack, PromoStack } from "./navigation";
 
 import { SignInScreen, SignUpScreen, SettingScreen } from "./pages";
+import { getUserInfo } from './utils/AuthenticationUtils';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const [ authenticated, setAuthenticated ] = React.useState(true);
+  const [ authenticated, setAuthenticated ] = React.useState(false);
+  const [ userInfo, setUserInfo ] = React.useState();
 
   const changeAuthenticated = (value) => {
     setAuthenticated(value);
