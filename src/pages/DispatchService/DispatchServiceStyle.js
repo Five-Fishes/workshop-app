@@ -40,16 +40,22 @@ export default StyleSheet.create({
     backgroundColor:"#EBF7F1",
     borderWidth:0.3,
   },
+  inlineView:{
+    flexDirection:"row",
+    justifyContent:"space-evenly",
+    paddingHorizontal: 5
+  },
 
   buttonaccept:{
     borderRadius:12,
     justifyContent:"center",
     alignContent:"center",
     alignItems:"center",
-    width:108,
+    width:100,
     height:38,
-    backgroundColor:"#B1F666",
+    backgroundColor:"rgba(59, 164, 70, 0.8)",
     borderWidth:0.5,
+    marginHorizontal: 5,
   },
 
   buttonnavigate:{
@@ -61,6 +67,19 @@ export default StyleSheet.create({
     height:38,
     backgroundColor:"#5B8FE0",
     borderWidth:0.5,
+    marginHorizontal: 5,
+  },
+
+  buttonComplete:{
+    borderRadius:12,
+    justifyContent:"center",
+    alignContent:"center",
+    alignItems:"center",
+    width:108,
+    height:38,
+    backgroundColor:"#FF8800",
+    borderWidth:0.5,
+    marginHorizontal: 5,
   },
 
   buttonreject:{
@@ -70,7 +89,7 @@ export default StyleSheet.create({
     alignItems:"center",
     width:108,
     height:38,
-    backgroundColor:"#F54136",
+    backgroundColor:"#BF3941",
     color: "white",
     borderWidth:0.5,
   },

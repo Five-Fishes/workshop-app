@@ -8,4 +8,13 @@ export default StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center"
   },
+  whiteText: {
+    color: "white",
+    textAlign: "center",
+  },
+  inlineView:{
+    flexDirection:"row",
+    justifyContent:"space-evenly",
+    paddingHorizontal: 5
+  },
 })

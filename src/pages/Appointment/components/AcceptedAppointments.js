@@ -74,7 +74,7 @@ export default (props) => {
                     handleView(item)
                   }}
                 >
-                  <Text>View</Text>
+                  <Text style={GeneralStyles.whiteText}>View</Text>
               </TouchableOpacity>
             </View>
           </View>

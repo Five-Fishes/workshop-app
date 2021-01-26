@@ -138,18 +138,28 @@ const DispatchService = ({navigation, route} ) => {
                         handleUpdate(item, "ACCEPTED")
                       }}
                     >
-                      <Text>Accpet</Text>
+                      <Text style={GeneralStyles.whiteText}>Accpet</Text>
                   </TouchableOpacity>
                   )}
                   {item.status === "ACCEPTED" && (
-                    <TouchableOpacity 
-                      style={styles.buttonnavigate}
-                      onPress={() => {
-                        navigate(item.serviceLocation)
-                      }}
-                    >
-                      <Text>Navigate</Text>
-                    </TouchableOpacity>
+                    <View style={styles.inlineView}>
+                      <TouchableOpacity 
+                        style={styles.buttonnavigate}
+                        onPress={() => {
+                          navigate(item.serviceLocation)
+                        }}
+                      >
+                        <Text style={GeneralStyles.whiteText}>Navigate</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity 
+                        style={styles.buttonComplete}
+                        onPress={() => {
+                          navigate(item.serviceLocation)
+                        }}
+                      >
+                        <Text style={GeneralStyles.whiteText}>Complete</Text>
+                      </TouchableOpacity>
+                    </View>
                   )}
                 </View>
               </View>
