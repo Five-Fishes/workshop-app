@@ -7,13 +7,17 @@ import { Client } from "./graphql";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeStack, AppointmentStack, DispatchServiceStack, ChatStack, PromoStack } from "./navigation";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+// import { HomeStack, AppointmentStack, DispatchServiceStack, ChatStack, PromoStack } from "./navigation";
+import { ProfileStack, AppBootomNavbar } from "./navigation";
 
 import { SignInScreen, SignUpScreen, SettingScreen } from "./pages";
 import { getUserInfo } from './utils/AuthenticationUtils';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const App = () => {
   const [ authenticated, setAuthenticated ] = React.useState(true);
@@ -27,93 +31,10 @@ const App = () => {
     <ApolloProvider client={Client}>
       {authenticated ? (
         <NavigationContainer>
-          <Tab.Navigator
-            initialRouteName="Home"
-            tabBarOptions={{
-              activeTintColor: '#163460',
-            }}>
-            <Tab.Screen
-              name="Home"
-              component={HomeStack}
-              options={{
-                tabBarLabel: 'Home',
-                fontWeight : "bold",
-
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="home"
-                    color={color}
-                    size={30}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Appointment"
-              component={AppointmentStack}
-              options={{
-                tabBarLabel: 'Appointment',
-                fontWeight : "bold",
-
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="store"
-                    color={color}
-                    size={30}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Dispatch"
-              component={DispatchServiceStack}
-              options={{
-                tabBarLabel: 'Dispatch',
-                fontWeight : "bold",
-
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="car-estate"
-                    color={color}
-                    size={30}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Chat"
-              component={ChatStack}
-              options={{
-                tabBarLabel: 'Chat',
-                fontWeight : "bold",
-
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="message"
-                    color={color}
-                    size={30}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Promotion"
-              component={PromoStack}
-              options={{
-                tabBarLabel: 'Promo',
-                fontWeight : "bold",
-                size : "20",
-
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="brightness-percent"
-                    color={color}
-                    size={30}
-                  />
-                ),
-              }}
-            />
-          </Tab.Navigator>
+          <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen name="Home" component={AppBootomNavbar} />
+            <Drawer.Screen name="Profile" component={ProfileStack} />
+          </Drawer.Navigator>
         </NavigationContainer>
         ) : (
         <NavigationContainer>

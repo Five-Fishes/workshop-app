@@ -6,7 +6,8 @@ export default StyleSheet.create({
     width: "100%",
     height:"100%",
     position: "absolute",
-    top: 75,
+    top: 50,
+    paddingTop: 15,
     backgroundColor:"white",
     borderRadius:33
   },
@@ -16,12 +17,14 @@ export default StyleSheet.create({
   },
 
   title:{
+    marginTop: 10,
     fontSize: 22,
     paddingHorizontal: 20,
     paddingVertical:5,
     fontWeight:"bold",
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
+    borderBottomColor: "black",
+    borderBottomWidth: 2,
+    borderStyle: "solid"
   },
 
   itemList: {

@@ -53,7 +53,7 @@ export const UPDATE_PROFILE = gql`
 
 export const GET_USER = gql`
   query User($id: String!) {
-    user(userId: $id) {
+    user(id: $id) {
       id
       type
       employeeType

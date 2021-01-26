@@ -1,10 +1,14 @@
 import * as React from "react";
+import { Image, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeScreen } from "../../pages";
 
 const Stack = createStackNavigator();
 
-const HomeStack = () => {
+const HomeStack = ({navigation}) => {
+
+  const profilePlaceHolder = require("../../staticResources/images/userPlaceholder.png");
+  
   return (
     <Stack.Navigator
       initialRouteName="Home"
@@ -23,7 +27,14 @@ const HomeStack = () => {
     >
       <Stack.Screen
         name="Home" component={HomeScreen}
-        options={{ title: "TBT WORKSHOP" }}
+        options={{ 
+          title: "TBT WORKSHOP",
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+              <Image source={profilePlaceHolder} />
+            </TouchableOpacity>
+          )
+        }}
       />
     </Stack.Navigator>
   )
