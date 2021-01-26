@@ -8,4 +8,8 @@ export default StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center"
   },
+  whiteText: {
+    color: "white",
+    textAlign: "center",
+  },
 })

@@ -100,7 +100,7 @@ export default (props) => {
                     handleUpdate(item, props.statuses.ACCEPTED)
                   }}
                 >
-                  <Text>Accpet</Text>
+                  <Text style={GeneralStyles.whiteText}>Accpet</Text>
               </TouchableOpacity>
               <TouchableOpacity 
                   style={styles.buttonreject}
@@ -108,7 +108,7 @@ export default (props) => {
                     handleUpdate(item, props.statuses.REJECTED)
                   }}
                 >
-                  <Text>Reject</Text>
+                  <Text style={GeneralStyles.whiteText}>Reject</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -48,7 +48,7 @@ export default StyleSheet.create({
     alignItems:"center",
     width:108,
     height:38,
-    backgroundColor:"#B1F666",
+    backgroundColor:"#rgba(59, 164, 70, 0.8)",
     borderWidth:0.5,
   },
 
@@ -77,7 +77,6 @@ export default StyleSheet.create({
     paddingTop:8,
   },
   itemList3: {
-    width:196,
     paddingHorizontal: 15,
     paddingVertical:8,
   },

@@ -20,11 +20,14 @@ const Message = ({props, route}) => {
     }
   }, [])
 
-  const {data: messageList, error: getMessagesErr, refetch} =  useQuery(ALL_MESSAGES, {variables: {
-    filter: JSON.stringify({
-      chatID: route.params.conversationId
-    })
-  }});
+  const {data: messageList, error: getMessagesErr, refetch} =  useQuery(ALL_MESSAGES, {
+    variables: {
+      filter: JSON.stringify({
+        chatID: route.params.conversationId
+      })
+    },
+    pollInterval: 500,
+  });
 
   const [createNewMessage, {data: newMessage, error: createMessageErr}] = useMutation(NEW_MESSAGE, {
     refetchQueries: [ {query: ALL_MESSAGES, variables: {
