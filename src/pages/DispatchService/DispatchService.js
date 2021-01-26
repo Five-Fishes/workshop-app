@@ -28,16 +28,16 @@ const DispatchService = ({navigation, route} ) => {
       })
     }
     // Request User Location permission
-    // (async () => {
-    //   let { status } = await Location.requestPermissionsAsync();
-    //   if (status !== 'granted') {
-    //     Alert.alert('Permission to access location was denied');
-    //     return;
-    //   }
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission to access location was denied');
+        return;
+      }
 
-    //   let location = await Location.getCurrentPositionAsync({});
-    //   setuserLocation(location);
-    // })()
+      let location = await Location.getCurrentPositionAsync({});
+      setuserLocation(location);
+    })()
   }, [])
 
   const DISPATCH_STATUS = {
@@ -87,13 +87,16 @@ const DispatchService = ({navigation, route} ) => {
   }
 
   const navigate = (location) => {
-    const coordinate = location.split(",");
+    // const coordinate = location.split(",");
+    const coordinate = [3.137538, 101.599061];
+    console.log(coordinate);
+    console.log(userLocation.coords);
     if(coordinate.length === 2) {
       showLocation({
         latitude: location[0],
         longitude: location[1],
-        // sourceLatitude: userLocation[1],  // optionally specify starting location for directions
-        // sourceLongitude: userLocation[0],  // not optional if sourceLatitude is specified
+        // sourceLatitude: userLocation.coords.latitude,  // optionally specify starting location for directions
+        // sourceLongitude: userLocation.coords.longitude,  // not optional if sourceLatitude is specified
         // title: 'The White House',  // optional
         // googleForceLatLon: false,  // optionally force GoogleMaps to use the latlon for the query instead of the title
         // googlePlaceId: 'ChIJGVtI4by3t4kRr51d_Qm_x58',  // optionally specify the google-place-id
