@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, Image, Alert  } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Image, Alert, Linking, Platform  } from "react-native";
 import Background from "../../components/Background/Background";
 import styles from "./DispatchServiceStyle";
 import { GeneralStyles } from "../../components";
@@ -87,30 +87,18 @@ const DispatchService = ({navigation, route} ) => {
   }
 
   const navigate = (location) => {
-    // const coordinate = location.split(",");
-    const coordinate = [3.137538, 101.599061];
-    console.log(coordinate);
-    console.log(userLocation.coords);
-    if(coordinate.length === 2) {
-      showLocation({
-        latitude: location[0],
-        longitude: location[1],
-        // sourceLatitude: userLocation.coords.latitude,  // optionally specify starting location for directions
-        // sourceLongitude: userLocation.coords.longitude,  // not optional if sourceLatitude is specified
-        // title: 'The White House',  // optional
-        // googleForceLatLon: false,  // optionally force GoogleMaps to use the latlon for the query instead of the title
-        // googlePlaceId: 'ChIJGVtI4by3t4kRr51d_Qm_x58',  // optionally specify the google-place-id
-        // alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
-        dialogTitle: 'Navigation', // optional (default: 'Open in Maps')
-        dialogMessage: 'Navigate to Customer Location', // optional (default: 'What app would you like to use?')
-        cancelText: 'Cancel Navigate', // optional (default: 'Cancel')
-        appsWhiteList: ['waze', 'google-maps', 'apple-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
-        // naverCallerName: 'com.example.myapp' // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
-        // appTitles: { 'google-maps': 'My custom Google Maps title' } // optionally you can override default app titles
-        // app: 'uber'  // optionally specify specific app to use
-      })
-    }
-    console.log(coordinate);
+    const coordinate = location.split(",");
+    // const coordinate = [3.137538, 101.599061];
+    // console.log(userLocation.coords);
+    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+    const latLng = `${coordinate[0]},${coordinate[1]}`;
+    const label = 'Custom Label';
+    const url = Platform.select({
+      ios: `${scheme}${label}@${latLng}`,
+      android: `${scheme}${latLng}(${label})`
+    });
+
+    Linking.openURL(url);
   }
 
   return (
