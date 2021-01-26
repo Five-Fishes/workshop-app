@@ -22,7 +22,11 @@ export const signIn = (newToken) => {
 };
 
 export const signOut = () => {
+  console.log("AUTH SIGN OUT")
   token = null;
+  AsyncStorage.removeItem(USER_ID);
+  AsyncStorage.removeItem(EMPLOYEE_TYPE);
+  AsyncStorage.removeItem(EMPLOYMENT_BRANCH);
   return AsyncStorage.removeItem(AUTH_TOKEN);
 };
 

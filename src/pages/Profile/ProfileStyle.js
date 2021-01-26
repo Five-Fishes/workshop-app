@@ -41,7 +41,7 @@ export default ProfileStyle = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    marginTop: 20,    
+    marginTop: 10,    
     minWidth: "50%",
     alignSelf: "center",
   },

@@ -3,7 +3,7 @@ import { View, Text, Image, ScrollView, TouchableOpacity, Alert } from "react-na
 import styles from "./ProfileStyle";
 import { Background, GeneralStyles } from "../../components";
 import { useLazyQuery, useQuery } from "@apollo/client";
-import { getUserInfo } from "../../utils/AuthenticationUtils";
+import { getUserInfo, signOut } from "../../utils/AuthenticationUtils";
 import { GET_USER } from "../../graphql";
 
 const profilePlaceHolder = require("../../staticResources/images/userPlaceholder.png");
@@ -33,6 +33,11 @@ const Profile = ({ navigation }) => {
       })
     }
   }, [])
+
+  const signOutUser = () => {
+    console.log("SIGN OUT USER")
+    signOut();
+  }
 
   const [ getUserDetails, 
     {data: userDetails, error: getUserErr, called: getUserCalled}] = useLazyQuery(GET_USER);
@@ -89,6 +94,13 @@ const Profile = ({ navigation }) => {
               style={styles.formButtonContainer}
             >
               <Text style={styles.whiteText}>Settings</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={signOutUser}
+              style={styles.formButtonContainer}
+            >
+              <Text style={styles.whiteText}>Sign Out</Text>
             </TouchableOpacity>
           </View>
         </View>

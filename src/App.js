@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import React from "react";
+import React, { useEffect } from "react";
 import { ApolloProvider } from "@apollo/client"
 import { Client } from "./graphql";
 
@@ -13,7 +13,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { ProfileStack, AppBootomNavbar } from "./navigation";
 
 import { SignInScreen, SignUpScreen, SettingScreen } from "./pages";
-import { getUserInfo } from './utils/AuthenticationUtils';
+import { getToken } from './utils/AuthenticationUtils';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,6 +25,16 @@ const App = () => {
 
   const changeAuthenticated = (value) => {
     setAuthenticated(value);
+  }
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
+
+  const checkAuth = async () => {
+    const token = await getToken();
+    console.log(token)
+    setAuthenticated(Boolean(token));
   }
 
   return (

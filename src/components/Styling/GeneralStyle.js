@@ -12,4 +12,9 @@ export default StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
+  inlineView:{
+    flexDirection:"row",
+    justifyContent:"space-evenly",
+    paddingHorizontal: 5
+  },
 })
