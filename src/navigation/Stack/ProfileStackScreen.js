@@ -1,10 +1,12 @@
 import * as React from "react";
+import { Image, TouchableOpacity } from "react-native";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createStackNavigator } from "@react-navigation/stack";
 import { SettingScreen, ProfileScreen, UpdateProfileScreen } from "../../pages";
 
 const Stack = createStackNavigator();
 
-const ProfileStack = () => {
+const ProfileStack = ({navigation}) => {
   return (
     <Stack.Navigator
       initialRouteName="Profile"
@@ -23,7 +25,18 @@ const ProfileStack = () => {
     >
       <Stack.Screen
         name="Profile" component={ProfileScreen}
-        options={{ title: "Profile" }}
+        options={{ 
+          title: "Profile",
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+              <MaterialCommunityIcons
+                name="home"
+                color={"white"}
+                size={32}
+              />
+            </TouchableOpacity>
+          )
+       }}
       />
       <Stack.Screen
         name="Update Profile" component={UpdateProfileScreen}

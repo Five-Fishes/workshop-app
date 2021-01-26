@@ -1,10 +1,13 @@
 import * as React from "react";
+import { Image, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { PromoScreen } from "../../pages";
 
 const Stack = createStackNavigator();
 
-const PromoStack = () => {
+const PromoStack = ({navigation}) => {
+  const profilePlaceHolder = require("../../staticResources/images/userPlaceholder.png");
+
   return (
     <Stack.Navigator
       initialRouteName="Promo"
@@ -23,7 +26,14 @@ const PromoStack = () => {
     >
       <Stack.Screen
         name="Promo" component={PromoScreen}
-        options={{ title: "Promotion" }}
+        options={{
+          title: "Promotion",
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+              <Image source={profilePlaceHolder} />
+            </TouchableOpacity>
+          )
+        }}
       />
     </Stack.Navigator>
   )

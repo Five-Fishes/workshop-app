@@ -1,10 +1,13 @@
 import * as React from "react";
+import { Image, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AppointmentScreen } from "../../pages";
 
 const Stack = createStackNavigator();
 
-const AppointmentStack = () => {
+const AppointmentStack = ({navigation}) => {
+  const profilePlaceHolder = require("../../staticResources/images/userPlaceholder.png");
+
   return (
     <Stack.Navigator
       initialRouteName="Appointment"
@@ -23,7 +26,14 @@ const AppointmentStack = () => {
     >
       <Stack.Screen
         name="Appointment" component={AppointmentScreen}
-        options={{ title: "Appointment" }}
+        options={{
+          title: "Appointment",
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+              <Image source={profilePlaceHolder} />
+            </TouchableOpacity>
+          )
+        }}
       />
     </Stack.Navigator>
   )
