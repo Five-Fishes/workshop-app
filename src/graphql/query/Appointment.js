@@ -8,6 +8,7 @@ export const ALL_APPOINTMENTS = gql`
       customer {
         firstName
         lastName
+        contactNo
       }
       branch {
         branchAddr

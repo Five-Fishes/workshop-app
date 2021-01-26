@@ -43,14 +43,12 @@ const Appointment = ({navigation} ) => {
             <Text>{tabs.ACCEPTED}</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          {Boolean(tab === tabs.PENDING) && (
-            <PendingAppointmentsList statuses={APPOINTMENT_STATUS} />
-          )}
-          {Boolean(tab === tabs.ACCEPTED) && (
-            <AcceptedAppointmentsList statuses={APPOINTMENT_STATUS} />
-          )}
-        </View>
+        {Boolean(tab === tabs.PENDING) && (
+          <PendingAppointmentsList statuses={APPOINTMENT_STATUS} />
+        )}
+        {Boolean(tab === tabs.ACCEPTED) && (
+          <AcceptedAppointmentsList statuses={APPOINTMENT_STATUS} />
+        )}
       </View>
     </Background>
   );
