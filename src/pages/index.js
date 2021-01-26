@@ -1,6 +1,8 @@
 import Home from "./Home";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Profile from "./Profile";
+import UpdateProfile from "./UpdateProfile";
 import Setting from "./Setting";
 import Promo from "./Promo";
 import Appointment from "./Appointment";
@@ -14,6 +16,8 @@ export { Home as HomeScreen };
 export { SignIn as SignInScreen };
 export { SignUp as SignUpScreen };
 export { Setting as SettingScreen };
+export { Profile as ProfileScreen };
+export { UpdateProfile as UpdateProfileScreen };
 export { Promo as PromoScreen };
 export { Appointment as AppointmentScreen };
 export { DispatchService as DispatchServiceScreen };

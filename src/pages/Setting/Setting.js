@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Alert, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, Alert, TouchableOpacity, ScrollView } from "react-native";
 import
  MaterialCommunityIcons
 from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,10 +17,6 @@ const Setting = ({navigation}) => {
     {
       Name: "Google Maps",
       Navigate: ""
-    },
-    {
-      Name: "Cafix Navigation",
-      Navigate: ""
     }
   ];
 
@@ -30,59 +26,47 @@ const Setting = ({navigation}) => {
       Navigate: ""
     },
     {
-      Name: "Change Contact Information",
+      Name: "Change password",
       Navigate: ""
     },
     {
-      Name: "Change owner",
+      Name: "Term and Privacy",
       Navigate: ""
     }
   ];
 
   return (
     <Background>
-      <View style={styles.container}>
-      <View >
-      <Text style ={styles.title}>
+      <ScrollView style={styles.container}>
+      <View>
+        <Text style ={styles.title}>
           Navigation
         </Text>
-      </View>
+        {naviItems.map(item => {
+          return (
+            <TouchableOpacity 
+              style={styles.itemList}
+              onPress={() => {
+                Alert.alert("Clicked on "+item.Name)
+                // TODO: navigate to repective page
+                // navigation.navigate(item.Navigate)
+              }}
+            >
+              <Text>{ item.Name }</Text>
+              <MaterialCommunityIcons
+                name  = "arrow-right-drop-circle-outline"
+                size = {30}
+              />
+
+            </TouchableOpacity>
+          )
+        })}
         
-        <FlatList
-          style={styles.listView}
-          data={naviItems}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity 
-              style={styles.itemList}
-              onPress={() => {
-                Alert.alert("Clicked on "+item.Name)
-                // TODO: navigate to repective page
-                // navigation.navigate(item.Navigate)
-              }}
-            >
-              <Text>{ item.Name }</Text>
-              <MaterialCommunityIcons
-                name  = "arrow-right-drop-circle-outline"
-                size = {30}
-              />
-
-            </TouchableOpacity>
-          )}
-        >
-        </FlatList>
-
-        <View >
-          <Text style ={styles.title}>
+        <Text style ={styles.title}>
           Modification and Privacy
-        </Text>   
-        </View>
-            
-        <FlatList
-          style={styles.listView}
-          data={optionItems}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
+        </Text>
+        {optionItems.map(item => {
+          return (
             <TouchableOpacity 
               style={styles.itemList}
               onPress={() => {
@@ -96,11 +80,13 @@ const Setting = ({navigation}) => {
                 name  = "arrow-right-drop-circle-outline"
                 size = {30}
               />
+
             </TouchableOpacity>
-          )}
-        >
-        </FlatList>
+          )
+        })}
+
       </View>
+      </ScrollView>
     </Background>
   );
 };
