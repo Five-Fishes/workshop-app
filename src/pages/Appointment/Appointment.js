@@ -10,7 +10,8 @@ const Appointment = ({navigation} ) => {
 
   const APPOINTMENT_STATUS = {
     PENDING: "PENDING",
-    ACCEPTED: "ACCEPTED"
+    ACCEPTED: "ACCEPTED",
+    REJECTED: "REJECTED"
   }
 
   const tabs = {
@@ -32,7 +33,7 @@ const Appointment = ({navigation} ) => {
               triggerTab(tabs.PENDING)
             }}
           >
-            <Text>{tabs.PENDING}</Text>
+            <Text style={tab === tabs.PENDING ? styles.activeTab: "" }>{tabs.PENDING}</Text>
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.button}
@@ -40,7 +41,7 @@ const Appointment = ({navigation} ) => {
               triggerTab(tabs.ACCEPTED)
             }}
           >
-            <Text>{tabs.ACCEPTED}</Text>
+            <Text style={tab === tabs.ACCEPTED ? styles.activeTab: "" }>{tabs.ACCEPTED}</Text>
           </TouchableOpacity>
         </View>
         {Boolean(tab === tabs.PENDING) && (

@@ -33,7 +33,17 @@ export default (props) => {
 
   const [updateAppointment, { 
     data: appointmentUpdate, error: updateErr, called: updateCalled
-  }] = useMutation(UPDATE_APPOINMENT, [{refetchQueries: ALL_APPOINTMENTS}]);
+  }] = useMutation(UPDATE_APPOINMENT, {
+    refetchQueries:  [{
+      query: ALL_APPOINTMENTS, 
+      variables: {
+        filter: JSON.stringify({
+          branchID: "60082edcbc6b09993f1ae93e",
+          appointmentStatus: props.statuses.PENDING
+        })
+      }
+    }]
+  });
 
   const fetchAppointments = () => {
     // TODO: Replace with async storage
@@ -57,6 +67,7 @@ export default (props) => {
         vehicleID: appointment.vehicleID
       }
     }})
+    Alert.alert("Success", "Appointment Updated");
   }
   if (updateErr) {
     Alert.alert("Error", updateErr.message);
@@ -64,12 +75,12 @@ export default (props) => {
       branchID: "60082edcbc6b09993f1ae93e",
       appointmentStatus: props.statuses.PENDING
     }
-    refetch({variables: {filter: JSON.stringify(filter)}});
+    // refetch({variables: {filter: JSON.stringify(filter)}});
     // ToastMessage({message: updateErr.message, title: "Error"});
   }
   
   if(appointmentUpdate) {
-    Alert.alert("Success", "Appointment Updated");
+    
     // refreshAppointments()
     // ToastMessage({message:"Appointment Updated",title:"Success"});
   }
@@ -80,7 +91,7 @@ export default (props) => {
       <FlatList
         style={styles.listView}
         data={appointments}
-        extraData={pendingAppointments.appointments}
+        extraData={allPendingCalled}
         keyExtractor={(appointment) => appointment.id.toString()}
         renderItem={({item}) => (
           <View style={styles.smallcon}>
