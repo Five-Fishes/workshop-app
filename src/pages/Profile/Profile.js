@@ -88,13 +88,13 @@ const Profile = ({ navigation }) => {
             >
               <Text style={styles.whiteText}>Update Profile</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               activeOpacity={0.8}
               onPress={goToSettings}
               style={styles.formButtonContainer}
             >
               <Text style={styles.whiteText}>Settings</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={signOutUser}

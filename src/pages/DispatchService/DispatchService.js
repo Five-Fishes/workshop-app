@@ -120,7 +120,7 @@ const DispatchService = ({navigation, route} ) => {
                   <View style={styles.itemList3}>
                     {item.customer.firstName && (<Text style = {styles.name}>{ item.customer.firstName + " " + item.customer.lastName }</Text>)}
                     {item.service.serviceNm && (<Text style = {styles.time}>{ item.service.serviceNm }</Text>)}
-                    <Text style = {styles.time}>{ (new Date(parseInt(item.dispatchTimeStamp)).toDateString()) }</Text>
+                    {/* <Text style = {styles.time}>{ (new Date(parseInt(item.dispatchTimeStamp)).toDateString()) }</Text> */}
                   </View>
                 </View>
                 <View style={styles.buttoncon2}>
@@ -183,9 +183,6 @@ const DispatchService = ({navigation, route} ) => {
             <Text>{tabs.ACCEPTED}</Text>
           </TouchableOpacity>
         </View> */}
-        <View>
-          
-        </View>
       </View>
     </Background>
   );

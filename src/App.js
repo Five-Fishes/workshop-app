@@ -20,7 +20,7 @@ const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const [ authenticated, setAuthenticated ] = React.useState(true);
+  const [ authenticated, setAuthenticated ] = React.useState(false);
   const [ userInfo, setUserInfo ] = React.useState();
 
   const changeAuthenticated = (value) => {
