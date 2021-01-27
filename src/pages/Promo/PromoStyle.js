@@ -6,7 +6,7 @@ export default StyleSheet.create({
     width: "100%",
     height:"95%",
     position: "absolute",
-    top: 65,
+    top: 50,
     backgroundColor:"white",
     borderRadius:33
   },
@@ -18,6 +18,10 @@ export default StyleSheet.create({
     fontWeight:"bold",
     borderBottomColor: "grey",
     borderBottomWidth: 1,
+  },
+
+  activeTab: {
+    fontWeight: "600"
   },
 
   itemList: {
@@ -40,9 +44,9 @@ export default StyleSheet.create({
     borderRadius: 40,
   },
 
-  smallcon:{
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
+  promoItemWrapper: {
+    paddingHorizontal: 10,
+    marginLeft: 10
   },
 
   buttoncon:{

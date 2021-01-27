@@ -1,30 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Button, Alert,FlatList,Image,TouchableOpacity } from "react-native";
 import Background from "../../components/Background/Background";
+import { ALL_PROMOTIONS } from "../../graphql";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { getUserInfo } from "../../utils/AuthenticationUtils";
 import styles from "./PromoStyle";
 
 
 const Promo = () => {
-  const Items = [
-    {
-      Name: "Promo 1",
-      Time: "PETRON GASUL RM3 CASHBACK ",
-      Message: "Get Petron Gasul delivered to your home and receive RM3 cashback!?",
-      Photo: "https://cdn-web.tngdigital.com.my/images/Petron-Gasul/PetronGasul_Web_Thumbnail.jpg"
-    },
-    {
-      Name: "Promo 2",
-      Time: "TUTUCARS RM2 PROMO FRENZY ",
-      Message: "Enjoy RM2.00 discount with TutuCars on weekend!",
-      Photo:"https://cdn-web.tngdigital.com.my/images/Tutucars-RM2/TutuCar_RM2Cashback_Web_Thumbnail.jpg"
-    },
-    {
-      Name: "Promo 3",
-      Time: "BMS GET UP TO RM50 CASHBACK",
-      Message: "Renew insurance & road tax online seamlessly",
-      Photo: "https://cdn-web.tngdigital.com.my/images/2021/Jan/DreamShop/DreamShop_Web_Thumb.jpg"
+  const [userInfo, setUserInfo] = useState();
+  useEffect(() => {
+    if (!userInfo) {
+      getUserInfo()
+      .then(res => {
+        setUserInfo(res)
+        console.log(res.userId)
+        getAllPromotions({variables: {filter: "{}"}})
+      })
     }
-  ];
+  }, [])
+
+  const PROMOTION_TAB = {
+    "ONGOING": "Ongoing",
+    "SCHEDULED": "Scheduled"
+  }
+  const [tab, setTab] = useState(PROMOTION_TAB.ONGOING)
+
+  const [getAllPromotions, 
+    {data: promotionsList, error: getPromotionErr}] = useLazyQuery(ALL_PROMOTIONS);
+
+  const triggerTab = (tab) => {
+    console.log(tab)
+    getAllPromotions({variables: {filter: "{}"}})
+    setTab(tab);
+  }
 
 
   return (
@@ -33,44 +42,77 @@ const Promo = () => {
       <View style={styles.container}>
       <View style={styles.buttoncon}>
           <TouchableOpacity 
-                style={styles.button}
-                onPress={() => {
-                  Alert.alert("Ongoing")
-                }}
-              >
-                <Text style ={{fontWeight:"800"}}>Ongoing</Text>
+            style={styles.button}
+            onPress={() => triggerTab(PROMOTION_TAB.ONGOING)}
+          >
+            <Text style={tab === PROMOTION_TAB.ONGOING ? styles.activeTab: "" }>Ongoing</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-                style={styles.button}
-                onPress={() => {
-                  Alert.alert("Scheduled")
-                }}
-              >
-                <Text>Scheduled</Text>
+            style={styles.button}
+            onPress={() => triggerTab(PROMOTION_TAB.SCHEDULED)}
+          >
+            <Text style={tab === PROMOTION_TAB.SCHEDULED ? styles.activeTab: "" }>Scheduled</Text>
           </TouchableOpacity>
           
         </View>
-      <FlatList
-          style={styles.listView}
-          data={Items}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.smallcon}>
-              <View style={styles.itemList}>
-                <Text style = {styles.name}>{ item.Name }</Text>
-                <View style={styles.itemList}>
-                <Image source={{uri:item.Photo}}  style={styles.pic} />
-                <Text style = {styles.name}>{ item.Time }</Text>
+      {promotionsList && (
+        <View>
+          {tab === PROMOTION_TAB.ONGOING && (
+            <FlatList
+              style={styles.listView}
+              data={promotionsList.promotions}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View style={styles.promoItemWrapper}>
+                  {Boolean(
+                    new Date(parseInt(item.promotionEnd)) > new Date() &&
+                    new Date(parseInt(item.promotionStart)) < new Date()
+                  )&& (
+                    <View style={styles.itemList}>
+                      <Text style = {styles.name}>{ item.promotionNm }</Text>
+                      <View style={styles.itemList}>
+                        <Text style = {styles.details}>Code: { item.promoCode }</Text>
+                      {/* <Image source={{uri:item.Photo}}  style={styles.pic} /> */}
+                        <Text style = {styles.details}>Expiry Date: { new Date(parseInt(item.promotionEnd)).toDateString() }</Text>
+                        <Text style = {styles.details}>Discount Amount: MYR { item.discountAmt }</Text>
+                      </View>
+                    </View>
+                  )}
                 </View>
-              </View>
-            <View style={styles.itemList2}>
-              <Text style = {styles.details}>{ item.Message }</Text>
-            </View>
-          </View>
-
+    
+              )}
+            >
+            </FlatList>
           )}
-        >
-        </FlatList>
+          {tab === PROMOTION_TAB.SCHEDULED && (
+            <FlatList
+              style={styles.listView}
+              data={promotionsList.promotions}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View style={styles.promoItemWrapper}>
+                  {Boolean(
+                    new Date(parseInt(item.promotionEnd)) > new Date() &&
+                    new Date(parseInt(item.promotionStart)) > new Date()
+                  )&& (
+                    <View style={styles.itemList}>
+                      <Text style = {styles.name}>{ item.promotionNm }</Text>
+                      <View style={styles.itemList}>
+                        <Text style = {styles.details}>Code: { item.promoCode }</Text>
+                        <Text style = {styles.details}>Start: { new Date(parseInt(item.promotionStart)).toDateString() }</Text>
+                        <Text style = {styles.details}>Expiry Date: { new Date(parseInt(item.promotionEnd)).toDateString() }</Text>
+                        <Text style = {styles.details}>Discount Amount: MYR{ item.discountAmt }</Text>
+                      </View>
+                    </View>
+                  )}
+                </View>
+    
+              )}
+            >
+            </FlatList>
+          )}
+        </View>
+      )}
     </View>
 
     </Background>
