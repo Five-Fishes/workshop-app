@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity, Image, Modal } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Image, Modal, Alert } from "react-native";
 import GeneralStyles from "../../../components/Styling/GeneralStyle";
 import styles from "../AppointmentStyle";
-import { ALL_APPOINTMENTS } from "../../../graphql";
-import { useLazyQuery } from "@apollo/client";
+import { ALL_APPOINTMENTS, UPDATE_APPOINMENT } from "../../../graphql";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { getUserInfo } from "../../../utils/AuthenticationUtils";
 // import ModalComponent from "./Modal";
 
@@ -32,6 +32,39 @@ export default (props) => {
     data: acceptedAppointments,
     error: allAcceptedErr
   }] = useLazyQuery(ALL_APPOINTMENTS);
+
+  const [updateAppointment, { 
+    data: appointmentUpdate, error: updateErr, called: updateCalled
+  }] = useMutation(UPDATE_APPOINMENT, {
+    refetchQueries:  [{
+      query: ALL_APPOINTMENTS, 
+      variables: {
+        filter: JSON.stringify({
+          branchID: "60082edcbc6b09993f1ae93e",
+          appointmentStatus: props.statuses.ACCEPTED
+        })
+      }
+    }]
+  });
+
+  if(updateErr){
+    console.log(updateErr.message)
+  }
+
+  const handleUpdate = (appointment, status) => {
+    updateAppointment({variables: {
+      appointmentInput: {
+        id: appointment.id,
+        appointmentDate: appointment.appointmentDate,
+        appointmentStatus: status,
+        branchID: appointment.branchID,
+        customerID: appointment.customerID,
+        serviceID: appointment.serviceID,
+        vehicleID: appointment.vehicleID
+      }
+    }})
+    Alert.alert("Success", "Appointment Updated");
+  }
 
   const handleView = (appointment) => {
     console.log(appointment)
@@ -77,6 +110,14 @@ export default (props) => {
                     }}
                   >
                     <Text style={GeneralStyles.whiteText}>View</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={styles.buttonComplete}
+                    onPress={() => {
+                      handleUpdate(item, "COMPLETED")
+                    }}
+                  >
+                    <Text style={GeneralStyles.whiteText}>Completed</Text>
                 </TouchableOpacity>
               </View>
             </View>

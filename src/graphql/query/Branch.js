@@ -50,3 +50,15 @@ export const ALL_BRANCHES = gql`
     }
   }
 `;
+
+export const BRANCH = gql`
+  query Branch($id: String!) {
+    branch(id: $id) {
+      id
+      companyId
+      branchAddr
+      branchContactNo
+      hasDispatchService
+    }
+  }
+`;

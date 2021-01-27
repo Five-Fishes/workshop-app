@@ -63,6 +63,17 @@ export default StyleSheet.create({
     color: "white",
     borderWidth:0.5,
   },
+  buttonComplete:{
+    borderRadius:12,
+    justifyContent:"center",
+    alignContent:"center",
+    alignItems:"center",
+    width:108,
+    height:38,
+    backgroundColor:"#FF8800",
+    borderWidth:0.5,
+    marginHorizontal: 5,
+  },
 
   title:{
     fontSize: 22,
