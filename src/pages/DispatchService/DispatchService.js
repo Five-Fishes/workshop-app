@@ -114,8 +114,9 @@ const DispatchService = ({navigation, route} ) => {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({item}) => (
               <View style={styles.smallcon}>
-                {console.log("item", item.dispatchTimeStamp)}
-                <View style={styles.itemList}>
+                {Boolean(item.status === DISPATCH_STATUS.ACCEPTED ||item.status === DISPATCH_STATUS.PENDING) &&(
+                  <View>
+                    <View style={styles.itemList}>
                   <Image source={userImagePlaceholder} style={styles.pic} />
                   <View style={styles.itemList3}>
                     {item.customer.firstName && (<Text style = {styles.name}>{ item.customer.firstName + " " + item.customer.lastName }</Text>)}
@@ -125,14 +126,25 @@ const DispatchService = ({navigation, route} ) => {
                 </View>
                 <View style={styles.buttoncon2}>
                   {item.status === DISPATCH_STATUS.PENDING && (
-                    <TouchableOpacity 
-                      style={styles.buttonaccept}
-                      onPress={() => {
-                        handleUpdate(item, DISPATCH_STATUS.ACCEPTED)
-                      }}
-                    >
-                      <Text style={GeneralStyles.whiteText}>Accpet</Text>
-                  </TouchableOpacity>
+                    <View style={styles.inlineView}>
+                      <TouchableOpacity 
+                        style={styles.buttonaccept}
+                        onPress={() => {
+                          handleUpdate(item, DISPATCH_STATUS.ACCEPTED)
+                        }}
+                      >
+                        <Text style={GeneralStyles.whiteText}>Accpet</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity 
+                        style={styles.buttonreject}
+                        onPress={() => {
+                          handleUpdate(item, DISPATCH_STATUS.REJECTED)
+                        }}
+                      >
+                        <Text style={GeneralStyles.whiteText}>Reject</Text>
+                      </TouchableOpacity>
+                    </View>
+                  
                   )}
                   {item.status === DISPATCH_STATUS.ACCEPTED && (
                     <View style={styles.inlineView}>
@@ -144,17 +156,19 @@ const DispatchService = ({navigation, route} ) => {
                       >
                         <Text style={GeneralStyles.whiteText}>Navigate</Text>
                       </TouchableOpacity>
-                      {/* <TouchableOpacity 
+                      <TouchableOpacity 
                         style={styles.buttonComplete}
                         onPress={() => {
                           handleUpdate(item, DISPATCH_STATUS.COMPLETED)
                         }}
                       >
                         <Text style={GeneralStyles.whiteText}>Complete</Text>
-                      </TouchableOpacity> */}
+                      </TouchableOpacity>
                     </View>
                   )}
                 </View>
+                  </View>
+                )}
               </View>
             )}
           >
