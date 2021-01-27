@@ -29,7 +29,7 @@ export default StyleSheet.create({
 
   chatInfo: {
     paddingLeft: 15,
-    
+    justifyContent: "center"
   },
 
   itemList2: {
@@ -68,8 +68,8 @@ export default StyleSheet.create({
 
   pic:{
     borderRadius:50,
-    width: 68,
-    height: 68,
+    width: 54,
+    height: 54,
   
   }
 });
