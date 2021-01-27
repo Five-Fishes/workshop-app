@@ -134,5 +134,16 @@ export default StyleSheet.create({
     width: 68,
     height: 68,
   
+  },
+
+  infoCard:{
+    minHeight: 120,
+    width: "45%",
+    backgroundColor:"white",
+    borderRadius:8,
+    marginTop:18,
+    marginHorizontal:8,
+    padding:13,
+    paddingTop:18
   }
 });
