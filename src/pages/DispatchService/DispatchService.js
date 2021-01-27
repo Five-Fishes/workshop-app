@@ -55,34 +55,36 @@ const DispatchService = ({navigation, route} ) => {
     refetchQueries: [ {query: ALL_DISPATCH_SERVICES, variables: {
       filter: JSON.stringify({
         status: ["PENDING", "ACCEPTED"]
-        // branch: userInfo.employmentBranch.toString()
       })
     }} ]
   });
 
-  if (dispatchServiceList) {
-    console.log(dispatchServiceList)
-  }
   if (updateDispatchServiceErr) {
     Alert.alert("Error Updating", updateDispatchServiceErr.message);
   }
 
   const handleUpdate = (dispatchService, status) => {
-    console.log("UPDATING: ", dispatchService)
     updateDispatchService({variables: {
-      id: dispatchService.id,
-      dispatchTimeStampd: dispatchService.dispatchTimeStamp,
-      branch: dispatchService.branch.id,
-      customer: dispatchService.customer.id,
-      service: dispatchService.service.id,
-      vehicle: dispatchService.vehicle,
-      customerLocationDesc: dispatchService.customerLocationDesc,
-      serviceLocation: dispatchService.serviceLocation,
-      foremanCurrentLocation: dispatchService.foremanCurrentLocation,
-      foremanDepartTime: dispatchService.foremanDepartTime,
-      estimatedArrivalTime: dispatchService.estimatedArrivalTime,
-      status: status,
-      employee: userInfo.userId,
+      dispatchServiceInput: {
+        id: dispatchService.id,
+        dispatchTimeStamp: dispatchService.dispatchTimeStamp,
+        branch: dispatchService.branch.id,
+        customer: dispatchService.customer.id,
+        service: dispatchService.service.id,
+        vehicle: {
+          vehicleBrand: dispatchService.vehicle.vehicleBrand,
+          vehicleModel: dispatchService.vehicle.vehicleModel,
+          vehiclePlateNumber: dispatchService.vehicle.vehiclePlateNumber,
+          vehicleType: dispatchService.vehicle.vehicleType
+        },
+        customerLocationDesc: dispatchService.customerLocationDesc,
+        serviceLocation: dispatchService.serviceLocation,
+        foremanCurrentLocation: dispatchService.foremanCurrentLocation,
+        foremanDepartTime: dispatchService.foremanDepartTime,
+        estimatedArrivalTime: dispatchService.estimatedArrivalTime,
+        status: status,
+        employee: userInfo.userId
+      }
     }})
   }
 
@@ -122,17 +124,17 @@ const DispatchService = ({navigation, route} ) => {
                   </View>
                 </View>
                 <View style={styles.buttoncon2}>
-                  {item.status === "PENDING" && (
+                  {item.status === DISPATCH_STATUS.PENDING && (
                     <TouchableOpacity 
                       style={styles.buttonaccept}
                       onPress={() => {
-                        handleUpdate(item, "ACCEPTED")
+                        handleUpdate(item, DISPATCH_STATUS.ACCEPTED)
                       }}
                     >
                       <Text style={GeneralStyles.whiteText}>Accpet</Text>
                   </TouchableOpacity>
                   )}
-                  {item.status === "ACCEPTED" && (
+                  {item.status === DISPATCH_STATUS.ACCEPTED && (
                     <View style={styles.inlineView}>
                       <TouchableOpacity 
                         style={styles.buttonnavigate}
@@ -142,14 +144,14 @@ const DispatchService = ({navigation, route} ) => {
                       >
                         <Text style={GeneralStyles.whiteText}>Navigate</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity 
+                      {/* <TouchableOpacity 
                         style={styles.buttonComplete}
                         onPress={() => {
-                          navigate(item.serviceLocation)
+                          handleUpdate(item, DISPATCH_STATUS.COMPLETED)
                         }}
                       >
                         <Text style={GeneralStyles.whiteText}>Complete</Text>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                   )}
                 </View>

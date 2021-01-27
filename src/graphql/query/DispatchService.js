@@ -102,10 +102,12 @@ export const UPDATE_DISPATCH_SERVICE = gql`
       estimatedArrivalTime
       status
       branch {
+        id
         branchAddr
         branchContactNo
       }
       employee {
+        id
         firstName
         lastName
         contactNo
@@ -114,12 +116,14 @@ export const UPDATE_DISPATCH_SERVICE = gql`
         employmentBranch
       }
       customer {
+        id
         firstName
         lastName
         contactNo
         ip
       }
       service {
+        id
         serviceNm
         estimatedServiceTime
       }
