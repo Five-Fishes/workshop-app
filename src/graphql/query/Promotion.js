@@ -8,21 +8,18 @@ export const ALL_PROMOTIONS = gql`
       promotionStart
       promotionEnd
       image {
-        id
         imageURL
         imageSize
         imageType
         imageFileNm
       }
       promotionService {
-        id
         serviceNm
         isDispatchAvailable
         isInHouseAvailable
         estimatedServiceTime
       }
       promotionBranch {
-        id
         branchAddr
         branchContactNo
       }
@@ -35,38 +32,6 @@ export const ALL_PROMOTIONS = gql`
 export const PROMOTION = gql`
   query Promotion($id: String!) {
     promotion(id: $id) {
-      id
-      promotionNm
-      promotionStart
-      promotionEnd
-      image {
-        id
-        imageURL
-        imageSize
-        imageType
-        imageFileNm
-      }
-      promotionService {
-        id
-        serviceNm
-        isDispatchAvailable
-        isInHouseAvailable
-        estimatedServiceTime
-      }
-      promotionBranch {
-        id
-        branchAddr
-        branchContactNo
-      }
-      promoCode
-      discountAmt
-    }
-  }
-`;
-
-export const ALL_PROMOTIONS = gql`
-  query Promotions($filter: String!) {
-    promotions(filter: $filter) {
       id
       promotionNm
       promotionStart
