@@ -98,7 +98,7 @@ const Home = ({ navigation, route }) => {
   const fetchDispatchServie = () => {
     getALlDispatchServices({variables: {
       filter: JSON.stringify({
-        status: ["ACCEPTED"]
+        status: ["ACCEPTED", "COMPLETED"]
       })
     }})
   }
