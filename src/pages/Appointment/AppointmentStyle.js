@@ -70,6 +70,9 @@ export default StyleSheet.create({
     paddingVertical:5,
     fontWeight:"bold",
   },
+  activeTab: {
+    fontWeight: "900"
+  },
 
   itemList: {
     flexDirection: "row",
